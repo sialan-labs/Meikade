@@ -36,6 +36,34 @@ Rectangle {
             omen_frame.refresh()
     }
 
+    Image {
+        anchors.fill: parent
+        source: "icons/hafez_omen.jpg"
+        fillMode: Image.PreserveAspectCrop
+
+        Rectangle {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 30*physicalPlatformScale + View.navigationBarHeight
+            height: intent_txt.height + 20*physicalPlatformScale
+            color: "#bb000000"
+
+            Text {
+                id: intent_txt
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                font.family: SApp.globalFontFamily
+                font.pixelSize: 11*fontsScale
+                wrapMode: Text.WordWrap
+                color: "#ffffff"
+                text: qsTr("Intent and Tap on the screen")
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
+    }
+
     OmenFrame {
         id: omen_frame
         width: parent.width

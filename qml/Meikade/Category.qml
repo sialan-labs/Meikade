@@ -118,6 +118,7 @@ Item {
         id: category_list
         anchors.fill: parent
         bottomMargin: View.navigationBarHeight
+        maximumFlickVelocity: flickVelocity
 
         property real cellWidth: areaFrame.width/cellCount
         property int cellCount: Math.floor(areaFrame.width/(150*physicalPlatformScale))

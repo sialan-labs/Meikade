@@ -77,7 +77,9 @@ Rectangle {
             model.append({"name":qsTr("Bookmarks"), "fileName":"Bookmarks.qml"})
             model.append({"name":qsTr("Notes")    , "fileName":"Notes.qml"})
             model.append({"name":qsTr("Configure"), "fileName":"Configure.qml"})
+            model.append({"name":qsTr("OpenSource Projecs"), "fileName":"OpenSourceProjects.qml"})
             model.append({"name":qsTr("About")    , "fileName":"About.qml"})
+            model.append({"name":qsTr("About Sialan"), "fileName":"AboutSialan.qml"})
         }
     }
 

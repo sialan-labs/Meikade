@@ -22,6 +22,7 @@ import SialanTools 1.0
 About {
     id: init_wait
     anchors.fill: parent
+    aboutText: false
 
     Text {
         id: init_txt

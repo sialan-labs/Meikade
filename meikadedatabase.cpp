@@ -35,6 +35,7 @@ class MeikadeDatabasePrivate
 public:
     QSqlDatabase db;
     QString path;
+    QString src;
 
     QMultiHash<int,int> childs;
     QHash<int,int> parents;
@@ -65,18 +66,27 @@ void MeikadeDatabase::initialize()
 {
 #ifdef Q_OS_ANDROID
     p->path = "/sdcard/Sialan/Meikade/data.sqlite";
+    p->src = "assets:/database/data.sqlite";
     QDir().mkpath("/sdcard/Sialan/Meikade");
 #else
     p->path = HOME_PATH + "/data.sqlite";
+    p->src = "database/data.sqlite";
 #endif
 
-    if( !Meikade::settings()->value("initialize/data_db",false).toBool() )
+    bool force = false;
+    if( QFileInfo(p->src).size() != QFileInfo(p->path).size() )
+    {
+        force = true;
+        QFile::remove(p->path);
+    }
+
+    if( force || !Meikade::settings()->value("initialize/data_db",false).toBool() )
     {
         connect( p->tfs, SIGNAL(copyFinished(QString)), SLOT(initialize_prv()), Qt::QueuedConnection );
 #ifdef Q_OS_ANDROID
-        p->tfs->copy("assets:/database/data.sqlite",p->path);
+        p->tfs->copy(p->src ,p->path);
 #else
-        p->tfs->copy("database/data.sqlite",p->path);
+        p->tfs->copy(p->src ,p->path);
 #endif
     }
     else {

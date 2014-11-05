@@ -25,6 +25,8 @@ Rectangle {
     height: 62
     color: "#FF7340"
 
+    property bool aboutText: true
+
     Image {
         anchors.fill: parent
         sourceSize: Qt.size(width,height)
@@ -50,6 +52,34 @@ Rectangle {
         onClicked: {
             main.back()
             Devices.hideKeyboard()
+        }
+    }
+
+    Column {
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.margins: 10*physicalPlatformScale
+
+        Text {
+            width: parent.width
+            font.family: SApp.globalFontFamily
+            font.pixelSize: 10*fontsScale
+            text: qsTr("Meikade is a free (means, the users have the freedom to run, copy, distribute, study, change and improve the software) and opensource application by Sialan Labs")
+            wrapMode: Text.WordWrap
+            color: "#ffffff"
+            horizontalAlignment: Text.AlignHCenter
+            visible: aboutText
+        }
+
+        Text {
+            width: parent.width
+            font.family: SApp.globalFontFamily
+            font.pixelSize: 9*fontsScale
+            text: "v1.0.0"
+            wrapMode: Text.WordWrap
+            color: "#ffffff"
+            horizontalAlignment: Text.AlignRight
         }
     }
 }

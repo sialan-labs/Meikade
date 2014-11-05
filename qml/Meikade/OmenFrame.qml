@@ -19,7 +19,7 @@
 import QtQuick 2.0
 import SialanTools 1.0
 
-Rectangle {
+Item {
     id: omen_frame
     width: 100
     height: 62

@@ -118,16 +118,18 @@ Item {
 
             Row {
                 id: tools_row
-                height: 36*physicalPlatformScale
+                height: 32*physicalPlatformScale
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
+                spacing: 1*physicalPlatformScale
 
                 Button {
                     id: favorite
                     height: tools_row.height
                     width: height
                     icon: poem_header.favorited? "icons/favorites.png" : "icons/unfavorites.png"
-                    normalColor: "#00000000"
+                    normalColor: "#9D463E"
+                    iconHeight: 14*physicalPlatformScale
                     onClicked: poem_header.favorited = !poem_header.favorited
                 }
 
@@ -136,7 +138,8 @@ Item {
                     height: tools_row.height
                     width: height
                     icon: "icons/share.png"
-                    normalColor: "#00000000"
+                    normalColor: "#9D463E"
+                    iconHeight: 14*physicalPlatformScale
                     onClicked: {
                         var subject = Database.poemName(poem_header.poemId)
                         var poet

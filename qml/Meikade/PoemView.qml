@@ -275,7 +275,7 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: pitem.bottom
-                height: 200*physicalPlatformScale
+                height: 80*physicalPlatformScale
 
                 property bool editMode: item.editMode
                 property variant itemObj

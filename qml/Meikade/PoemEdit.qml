@@ -23,7 +23,7 @@ Rectangle {
     id: poem_edit
     width: 100
     height: 62
-    color: "#dddddd"
+    color: "#363636"
 
     property int vid
     property int poemId
@@ -74,9 +74,37 @@ Rectangle {
         id: row
         anchors.fill: parent
 
+        Column {
+            id: tools_column
+            height: parent.height
+            width: 42*physicalPlatformScale
+
+            Button {
+                id: paste
+                height: width
+                width: parent.width
+                icon: "icons/paste.png"
+                iconHeight: 18*physicalPlatformScale
+                normalColor: "#904F73"
+                highlightColor: "#EC4334"
+                onClicked: note.paste()
+            }
+
+            Button {
+                id: copy
+                height: width
+                width: parent.width
+                icon: "icons/copy.png"
+                iconHeight: 18*physicalPlatformScale
+                normalColor: "#4774A7"
+                highlightColor: "#EC4334"
+                onClicked: note.copy()
+            }
+        }
+
         Item {
             id: note_back
-            width: row.width - tools_column.width
+            width: row.width - tools_column.width - share_column.width
             height: row.height
 
             TextEdit {
@@ -96,7 +124,9 @@ Rectangle {
                 wrapMode: Text.Wrap
                 selectionColor: "#0d80ec"
                 selectedTextColor: "#ffffff"
-                color: "#333333"
+                color: "#ffffff"
+                pickersColor: "#cccccc"
+                pickersStrokeColor: "#ffffff"
                 inputMethodHints: Qt.ImhNoPredictiveText
                 horizontalAlignment: Meikade.languageDirection == Qt.LeftToRight? Text.AlignLeft : Text.AlignRight
 
@@ -114,7 +144,7 @@ Rectangle {
         }
 
         Column {
-            id: tools_column
+            id: share_column
             height: parent.height
             width: 42*physicalPlatformScale
 
@@ -124,7 +154,7 @@ Rectangle {
                 width: parent.width
                 icon: poem_edit.favorited? "icons/favorites.png" : "icons/unfavorites.png"
                 iconHeight: 18*physicalPlatformScale
-                normalColor: "#00000000"
+                normalColor: "#A79B48"
                 highlightColor: "#EC4334"
                 onClicked: poem_edit.favorited = !poem_edit.favorited
             }
@@ -135,7 +165,7 @@ Rectangle {
                 width: parent.width
                 icon: "icons/share.png"
                 iconHeight: 18*physicalPlatformScale
-                normalColor: "#00000000"
+                normalColor: "#4F9082"
                 highlightColor: "#EC4334"
                 onClicked: {
                     var subject = Database.poemName(poem_edit.poemId)
@@ -150,28 +180,6 @@ Rectangle {
                     var message = poem_edit.text + "\n\n" + poet
                     Devices.share(subject,message)
                 }
-            }
-
-            Button {
-                id: paste
-                height: width
-                width: parent.width
-                icon: "icons/paste.png"
-                iconHeight: 18*physicalPlatformScale
-                normalColor: "#00000000"
-                highlightColor: "#EC4334"
-                onClicked: note.paste()
-            }
-
-            Button {
-                id: copy
-                height: width
-                width: parent.width
-                icon: "icons/copy.png"
-                iconHeight: 18*physicalPlatformScale
-                normalColor: "#00000000"
-                highlightColor: "#EC4334"
-                onClicked: note.copy()
             }
         }
     }

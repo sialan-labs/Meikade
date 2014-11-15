@@ -67,7 +67,16 @@ Rectangle {
 
         CategoryPageItem {
             categoryComponent: category_component
+            poemsComponent: poems_component
             baseFrame: base_frame
+        }
+    }
+
+    Component {
+        id: poems_component
+        PoemsPage {
+            width: parent.width
+            height: parent.height
         }
     }
 

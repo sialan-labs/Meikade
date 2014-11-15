@@ -26,7 +26,7 @@ Item {
 
     property int catId: -1
     property alias itemsSpacing: category_list.spacing
-    property real topMargin: 0
+    property real topMargin: itemsSpacing
     property alias header: category_list.header
     property alias footer: category_list.footer
 
@@ -42,7 +42,7 @@ Item {
         maximumFlickVelocity: flickVelocity
         clip: true
         spacing: 8*physicalPlatformScale
-        topMargin: spacing + category.topMargin
+        topMargin: category.topMargin
 
         model: ListModel {}
         delegate: Rectangle {
@@ -101,7 +101,8 @@ Item {
     }
 
     ScrollBar {
-        scrollArea: category_list; height: category_list.height
+        scrollArea: category_list; height: category_list.height-topMargin
         anchors.left: category_list.left; anchors.top: category_list.top
+        anchors.topMargin: topMargin
     }
 }

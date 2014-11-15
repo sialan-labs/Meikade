@@ -25,33 +25,16 @@ Rectangle {
     height: 62
 
     property bool viewMode: false
-    property variant fallBackHandler
 
     onViewModeChanged: {
-        if( viewMode ) {
-            if( BackHandler )
-                fallBackHandler = BackHandler
-
-            BackHandler = bhandler_item
-        }
-        else {
-            if( fallBackHandler )
-                BackHandler = fallBackHandler
-            else
-                BackHandler = 0
-        }
-
-        main.focus = true
+        if( viewMode )
+            BackHandler.pushHandler(bhandler_item, bhandler_item.back)
+        else
+            BackHandler.removeHandler(bhandler_item)
     }
 
     function back() {
-        if( viewMode ) {
-            viewMode = false
-            return true
-        } else {
-            return false
-        }
+        viewMode = false
+        main.focus = true
     }
-
-    Component.onDestruction: if( fallBackHandler && BackHandler == bhandler_item ) BackHandler = fallBackHandler
 }

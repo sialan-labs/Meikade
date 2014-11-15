@@ -224,6 +224,11 @@ QList<int> MeikadeDatabase::poets() const
     return p->poets_cats.values();
 }
 
+QString MeikadeDatabase::poetDesctiption(int id)
+{
+    return p->poets[id]["description"].toString();
+}
+
 QString MeikadeDatabase::verseText(int pid, int vid)
 {
     QSqlQuery query( p->db );
@@ -291,7 +296,7 @@ void MeikadeDatabase::init_buffer()
         p->poets_cats.insertMulti(name, cat);
 
         for( int i=0; i<record.count(); i++ )
-            p->poets[id][record.fieldName(i)] = record.value(i);
+            p->poets[cat][record.fieldName(i)] = record.value(i);
     }
 }
 

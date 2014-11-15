@@ -20,6 +20,7 @@ Rectangle {
     property real startHeight: 0
 
     property Component categoryComponent
+    property Component poemsComponent
     property variant baseFrame
 
     Behavior on x {
@@ -46,15 +47,23 @@ Rectangle {
 
     Category {
         id: category
-        topMargin: item.visible? item.height : 0
+        topMargin: item.visible? item.height : itemsSpacing
         height: cat_item.parent.height
         width: cat_item.parent.width
         header: root? desc_component : footer
 
         onCategorySelected: {
-            var item = categoryComponent.createObject(baseFrame, {"catId": cid, "startY": rect.y, "startHeight": rect.height})
-            item.root = (cat_item.catId == 0)
+            var item = categoryComponent.createObject(baseFrame, {"catId": cid, "startY": rect.y, "startHeight": rect.height,
+                                                      "root": (cat_item.catId == 0)} )
             item.start()
+
+            if( list.count != 0 )
+                list.last().outside = true
+
+            list.append(item)
+        }
+        onPoemSelected: {
+            var item = poemsComponent.createObject(baseFrame, {"catId": pid})
 
             if( list.count != 0 )
                 list.last().outside = true
@@ -99,11 +108,62 @@ Rectangle {
     Component {
         id: desc_component
         Rectangle {
-            x: category.itemsSpacing
-            width: category.width - 2*x
-            height: 55*physicalPlatformScale
-            border.width: 1*physicalPlatformScale
-            border.color: "#cccccc"
+            id: desc_header
+            width: cat_item.width
+            height: expand? desc_text.height + desc_text.y*2 : 80*physicalPlatformScale
+            color: "#444444"
+            clip: true
+
+            property bool expand: false
+
+            onExpandChanged: {
+                if( expand )
+                    BackHandler.pushHandler( desc_header, desc_header.unexpand )
+                else
+                    BackHandler.removeHandler(desc_header)
+            }
+
+            Behavior on height {
+                NumberAnimation{ easing.type: Easing.OutCubic; duration: 400 }
+            }
+
+            Text {
+                id: desc_text
+                anchors.left: parent.left
+                anchors.right: parent.right
+                y: 8*physicalPlatformScale
+                anchors.margins: y
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                color: "#ffffff"
+                font.family: SApp.globalFontFamily
+                font.pixelSize: 9*fontsScale
+                text: Database.poetDesctiption(catId)
+            }
+
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                height: 30*physicalPlatformScale
+                opacity: desc_header.expand? 0 : 1
+                gradient: Gradient {
+                    GradientStop { position: 0.0; color: "#00000000" }
+                    GradientStop { position: 1.0; color: desc_header.color }
+                }
+
+                Behavior on opacity {
+                    NumberAnimation{ easing.type: Easing.OutCubic; duration: 400 }
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: desc_header.expand = !desc_header.expand
+            }
+
+            function unexpand() {
+                expand = false
+            }
         }
     }
 

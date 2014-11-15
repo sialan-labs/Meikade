@@ -37,21 +37,7 @@ Rectangle {
     property bool topFrame: true
     property bool headerVisible: true
 
-    property variant fallBackHandler
-
     onOnEditChanged: {
-        if( onEdit ) {
-            if( BackHandler )
-                fallBackHandler = BackHandler
-
-            BackHandler = view
-        }
-        else {
-            if( fallBackHandler )
-                BackHandler = fallBackHandler
-            else
-                BackHandler = 0
-        }
     }
 
     onPoemIdChanged: {
@@ -160,6 +146,13 @@ Rectangle {
         footer: Rectangle {
             width: view_list.width
             height: view.height/3
+        }
+
+        onCurrentIndexChanged: {
+            if( currentIndex != -1 )
+                BackHandler.pushHandler(view, view.closeEdit)
+            else
+                BackHandler.removeHandler(view)
         }
 
         model: ListModel {}
@@ -416,15 +409,6 @@ Rectangle {
 
     function clear() {
         view_list.clear()
-    }
-
-    function back(){
-        if( onEdit ) {
-            closeEdit()
-            return true
-        } else {
-            return false
-        }
     }
 
     function highlightItem( vid ){

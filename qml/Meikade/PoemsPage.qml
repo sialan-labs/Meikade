@@ -95,6 +95,4 @@ Rectangle {
             return false
         }
     }
-
-    Component.onCompleted: main.BackHandler = poems_page
 }

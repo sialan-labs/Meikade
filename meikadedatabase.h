@@ -51,6 +51,7 @@ public slots:
 
     int catPoetId( int cat );
     QList<int> poets() const;
+    QString poetDesctiption( int id );
 
     QString verseText(int pid , int vid);
     int versePosition(int pid , int vid);

@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>qml/Meikade/About.qml</file>
         <file>qml/Meikade/AnimationItem.qml</file>
-        <file>qml/Meikade/BackHandlerView.qml</file>
         <file>qml/Meikade/BackupDialog.qml</file>
         <file>qml/Meikade/Bookmarks.qml</file>
         <file>qml/Meikade/Category.qml</file>
@@ -126,5 +125,6 @@
         <file>qml/Meikade/icons/go.png</file>
         <file>qml/Meikade/CategoryItem.qml</file>
         <file>qml/Meikade/CategoryPageItem.qml</file>
+        <file>qml/Meikade/BackHandlerView.qml</file>
     </qresource>
 </RCC>

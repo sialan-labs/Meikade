@@ -22,10 +22,27 @@ import SialanTools 1.0
 Rectangle {
     width: 100
     height: 62
-    color: "#dddddd"
+    color: "#ffffff"
+
+    Rectangle {
+        anchors.fill: title
+        color: "#5C90FF"
+    }
+
+    Header {
+        id: title
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.right: parent.right
+        titleFont.pixelSize: 13*fontsScale
+        light: true
+    }
 
     Item {
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.top: title.bottom
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
 
         Flickable {
             id: flickable
@@ -106,13 +123,6 @@ Rectangle {
             anchors.right: parent.right
             height: View.navigationBarHeight
             color: visit_btn.press? visit_btn.highlightColor : visit_btn.normalColor
-        }
-
-        Header {
-            id: title
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.right: parent.right
         }
     }
 }

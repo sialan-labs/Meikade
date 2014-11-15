@@ -31,6 +31,13 @@ Rectangle {
     property int duration: 400
     property int easingType: Easing.OutQuad
 
+    onViewModeChanged: {
+        if( viewMode )
+            BackHandler.pushHandler(poems_page, poems_page.back)
+        else
+            BackHandler.removeHandler(poems_page)
+    }
+
     Poems {
         id: poems
         width: parent.width
@@ -88,11 +95,6 @@ Rectangle {
     }
 
     function back() {
-        if( poems_page.viewMode ) {
-            switchPages()
-            return true
-        } else {
-            return false
-        }
+        poems_page.viewMode = false
     }
 }

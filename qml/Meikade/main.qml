@@ -44,8 +44,14 @@ SialanMain {
     property variant mainDialog
 
     property variant menuItem
-
     property variant init_wait
+
+    onMenuItemChanged: {
+        if( menuItem )
+            BackHandler.pushHandler( main, main.hideMenuItem )
+        else
+            BackHandler.removeHandler(main)
+    }
 
     QtObject {
         id: privates
@@ -167,6 +173,10 @@ SialanMain {
                 if( main.menuItem )
                     main.menuItem.close()
             }
+            if( !hide )
+                BackHandler.pushHandler( search_bar, function hide(){search_bar.hide = true} )
+            else
+                BackHandler.removeHandler(search_bar)
         }
     }
 
@@ -261,6 +271,7 @@ SialanMain {
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
                     height: Devices.standardTitleBarHeight
+                    titleFont.pixelSize: 13*fontsScale
                     light: true
                     visible: false
                 }
@@ -387,6 +398,10 @@ SialanMain {
 
     Keys.onEscapePressed: back()
 
+    function hideMenuItem() {
+        main.menuItem.close()
+    }
+
     function hideMenu() {
         main_scene.menu = false
     }
@@ -420,6 +435,6 @@ SialanMain {
     }
 
     function back(){
-        BackHandler.back()
+        return BackHandler.back()
     }
 }

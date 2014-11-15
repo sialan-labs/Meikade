@@ -64,6 +64,7 @@ Rectangle {
         }
         onPoemSelected: {
             var item = poemsComponent.createObject(baseFrame, {"catId": pid})
+            item.inited = true
 
             if( list.count != 0 )
                 list.last().outside = true

@@ -22,13 +22,19 @@ import SialanTools 1.0
 Rectangle {
     width: 100
     height: 62
-    color: "#333333"
+    color: "#ffffff"
+
+    Rectangle {
+        anchors.fill: title
+        color: "#7BCF6A"
+    }
 
     Header {
         id: title
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.right: parent.right
+        titleFont.pixelSize: 13*fontsScale
         light: true
     }
 
@@ -40,7 +46,7 @@ Rectangle {
         anchors.margins: 8*physicalPlatformScale
         font.family: SApp.globalFontFamily
         font.pixelSize: 9*fontsScale
-        color: "#ffffff"
+        color: "#333333"
         text: qsTr("List of other opensource projects used in Meikade.")
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
     }
@@ -80,7 +86,7 @@ Rectangle {
                         font.pixelSize: 14*fontsScale
                         font.family: SApp.globalFontFamily
                         anchors.left: parent.left
-                        color: "#ffffff"
+                        color: "#333333"
                         text: title
                     }
 
@@ -90,7 +96,7 @@ Rectangle {
                         font.family: SApp.globalFontFamily
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
-                        color: "#eeeeee"
+                        color: "#666666"
                         text: license
                     }
                 }
@@ -102,7 +108,7 @@ Rectangle {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                    color: "#dddddd"
+                    color: "#555555"
                     text: description
                 }
 
@@ -110,7 +116,7 @@ Rectangle {
                     id: link_txt
                     font.pixelSize: 9*fontsScale
                     font.family: SApp.globalFontFamily
-                    color: "#C2C2FF"
+                    color: "#0d80ec"
                     text: link
 
                     MouseArea {

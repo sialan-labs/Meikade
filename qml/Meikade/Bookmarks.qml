@@ -43,7 +43,7 @@ BackHandlerView {
         id: poem
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.topMargin: backButton? headerHeight+View.statusBarHeight : 0
+        anchors.topMargin: headerHeight+View.statusBarHeight
         width: parent.width
         topFrame: false
         clip: true
@@ -58,7 +58,7 @@ BackHandlerView {
         id: bookmark_frame
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.topMargin: backButton? headerHeight+View.statusBarHeight : View.statusBarHeight
+        anchors.topMargin: headerHeight+View.statusBarHeight
         width: parent.width
         x: bookmarks.viewMode? width : 0
         color: "#ffffff"
@@ -86,37 +86,18 @@ BackHandlerView {
     }
 
     Rectangle {
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: bookmark_frame.right
-        anchors.bottom: back_btn.bottom
-        color: "#444444"
-        visible: backButton
+        anchors.fill: title
+        color: "#880000"
     }
 
-    Button{
-        id: back_btn
+    Header {
+        id: title
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.topMargin: View.statusBarHeight
-        height: headerHeight
-        radius: 0
-        normalColor: "#00000000"
-        highlightColor: "#666666"
-        textColor: "#ffffff"
-        icon: "icons/back_light_64.png"
-        iconHeight: 16*physicalPlatformScale
-        fontSize: 11*fontsScale
-        textFont.bold: false
-        visible: backButton
-        onClicked: {
-            main.back()
-            Devices.hideKeyboard()
-        }
-
-        Behavior on textColor {
-            ColorAnimation { easing.type: Easing.OutCubic; duration: animations*400 }
-        }
+        anchors.right: parent.right
+        titleFont.pixelSize: 13*fontsScale
+        light: true
+        text: qsTr("Bookmarks")
     }
 
     function refresh() {

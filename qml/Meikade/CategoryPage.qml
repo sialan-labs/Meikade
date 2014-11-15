@@ -74,9 +74,30 @@ Rectangle {
 
     Component {
         id: poems_component
+
         PoemsPage {
+            id: ppage
             width: parent.width
             height: parent.height
+            x: inited? 0 : -width
+
+            property bool inited: false
+            property bool outside: false
+
+            Behavior on x {
+                NumberAnimation{ easing.type: Easing.OutCubic; duration: 400 }
+            }
+
+            Timer {
+                id: destroy_timer
+                interval: 400
+                onTriggered: ppage.destroy()
+            }
+
+            function end() {
+                inited = false
+                destroy_timer.restart()
+            }
         }
     }
 

@@ -63,7 +63,6 @@ MenuTypeA {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         x: search_menu.searchOnEdit? 0 : -width - shadow.width
-        topFrame: false
 
         Behavior on x {
             NumberAnimation { easing.type: search_menu.easingType; duration: animations*search_menu.duration }

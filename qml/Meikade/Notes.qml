@@ -45,7 +45,6 @@ BackHandlerView {
         anchors.bottom: parent.bottom
         anchors.topMargin: headerHeight+View.statusBarHeight
         width: parent.width
-        topFrame: false
         clip: true
         x: notes.viewMode? 0 : -width
 
@@ -74,7 +73,6 @@ BackHandlerView {
             header: Item {}
             clip: true
             editable: false
-            topFrame: false
             headerVisible: false
             onItemSelected: {
                 poem.poemId = pid
@@ -87,6 +85,7 @@ BackHandlerView {
 
     Rectangle {
         anchors.fill: title
+        anchors.topMargin: -View.statusBarHeight
         color: "#880000"
     }
 
@@ -95,6 +94,7 @@ BackHandlerView {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.right: parent.right
+        anchors.topMargin: View.statusBarHeight
         titleFont.pixelSize: 13*fontsScale
         light: true
         text: qsTr("Notes")

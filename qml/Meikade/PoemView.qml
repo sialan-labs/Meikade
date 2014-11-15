@@ -34,11 +34,7 @@ Rectangle {
 
     property real fontScale: Meikade.fontPointScale(Meikade.poemsFont)
     property bool editable: true
-    property bool topFrame: true
     property bool headerVisible: true
-
-    onOnEditChanged: {
-    }
 
     onPoemIdChanged: {
         view_list.refresh()
@@ -136,7 +132,6 @@ Rectangle {
     ListView {
         id: view_list
         anchors.fill: parent
-        anchors.topMargin: topFrame? 42*physicalPlatformScale+View.statusBarHeight : View.statusBarHeight
         clip: true
         highlightMoveDuration: 250
         maximumFlickVelocity: flickVelocity
@@ -386,8 +381,24 @@ Rectangle {
         }
     }
 
+    Item {
+        width: view_list.width
+        height: 32*physicalPlatformScale
+        clip: true
+        visible: view_list.contentY >= -height
+
+        PoemHeader{
+            id: fake_header
+            width: parent.width
+            anchors.bottom: parent.bottom
+            poemId: view.poemId
+            font.pixelSize: Devices.isMobile? 11*fontsScale : 13*fontsScale
+            font.family: globalPoemFontFamily
+        }
+    }
+
     ScrollBar {
-        scrollArea: view_list; height: view_list.height
+        scrollArea: view_list; height: view_list.height-View.navigationBarHeight
         anchors.left: view_list.left; anchors.top: view_list.top
     }
 

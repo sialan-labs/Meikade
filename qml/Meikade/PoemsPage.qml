@@ -69,24 +69,10 @@ Rectangle {
         id: view
         width: portrait? parent.width : parent.width*2/3
         height: parent.height
-        x: poems_page.viewMode? 0 : -width - shadow.width
+        x: poems_page.viewMode? 0 : -width
 
         Behavior on x {
             NumberAnimation { easing.type: poems_page.easingType; duration: animations*poems_page.duration }
-        }
-
-        Rectangle{
-            id: shadow
-            x: parent.width
-            y: -height
-            width: parent.height
-            height: 10*physicalPlatformScale
-            rotation: 90
-            transformOrigin: Item.BottomLeft
-            gradient: Gradient {
-                GradientStop { position: 0.0; color: "#00000000" }
-                GradientStop { position: 1.0; color: "#33000000" }
-            }
         }
     }
 

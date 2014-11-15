@@ -116,7 +116,6 @@ BackHandlerView {
         anchors.top: search_frame.bottom
         anchors.bottom: parent.bottom
         width: parent.width
-        topFrame: false
         clip: true
         x: search_bar.viewMode? 0 : -width
 

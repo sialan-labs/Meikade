@@ -52,6 +52,7 @@ Item {
             height: 55*physicalPlatformScale
             border.width: 1*physicalPlatformScale
             border.color: "#cccccc"
+            color: marea.pressed? "#CFDAFF" : "#ffffff"
 
             CategoryItem {
                 anchors.fill: parent
@@ -101,7 +102,7 @@ Item {
     }
 
     ScrollBar {
-        scrollArea: category_list; height: category_list.height-topMargin
+        scrollArea: category_list; height: category_list.height-topMargin-View.navigationBarHeight
         anchors.left: category_list.left; anchors.top: category_list.top
         anchors.topMargin: topMargin
     }

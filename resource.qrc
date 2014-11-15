@@ -143,5 +143,6 @@
         <file>qml/Meikade/banners/228.jpg</file>
         <file>qml/Meikade/banners/248.jpg</file>
         <file>qml/Meikade/banners/257.jpg</file>
+        <file>qml/Meikade/icons/menu.png</file>
     </qresource>
 </RCC>

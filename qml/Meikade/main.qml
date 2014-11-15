@@ -278,19 +278,39 @@ SialanMain {
             }
         }
 
-        Button {
-            id: menu_btn
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.topMargin: View.statusBarHeight
-            height: Devices.standardTitleBarHeight
+        Image {
+            id: menu_img
+            height: 24*physicalPlatformScale
             width: height
-            radius: 0
-            normalColor: "#00000000"
-            highlightColor: "#00000000"
-            textColor: "#ffffff"
-            icon: press? "icons/menu_hover_64.png" : "icons/menu_64.png"
-            iconHeight: 24*physicalPlatformScale
+            anchors.horizontalCenter: parent.right
+            anchors.top: parent.top
+            anchors.topMargin: (Devices.standardTitleBarHeight-height)/2 + View.statusBarHeight
+            sourceSize: Qt.size(width,height)
+            source: "icons/menu.png"
+        }
+
+        Text {
+            anchors.verticalCenter: menu_img.verticalCenter
+            anchors.right: menu_img.left
+            anchors.rightMargin: 8*physicalPlatformScale
+            font.family: SApp.globalFontFamily
+            font.pixelSize: 11*fontsScale
+            text: qsTr("Meikade")
+            color: "#ffffff"
+        }
+
+        Rectangle {
+            anchors.fill: menu_area
+            color: "#33ffffff"
+            visible: menu_area.pressed
+        }
+
+        MouseArea {
+            id: menu_area
+            anchors.top: parent.top
+            anchors.right: parent.right
+            height: Devices.standardTitleBarHeight + View.statusBarHeight
+            width: 100*physicalPlatformScale
             onClicked: {
                 frame.anim = true
                 if( main_scene.menu )
@@ -322,7 +342,7 @@ SialanMain {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.right: main_scene.right
-        anchors.topMargin: menu_btn.height+menu_btn.y
+        anchors.topMargin: menu_area.height+menu_area.y
         width: main_scene.menu? main_scene.width : 10*physicalPlatformScale
 
         onPressed: {

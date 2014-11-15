@@ -22,6 +22,7 @@ import SialanTools 1.0
 
 Rectangle {
     id: poems
+    color: "#dddddd"
 
     property int catId: -1
 
@@ -72,6 +73,16 @@ Rectangle {
             color: "#000000"
             opacity: 0.4
         }
+
+        Text {
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 8*physicalPlatformScale
+            color: "#ffffff"
+            font.pixelSize: 10*fontsScale
+            font.family: SApp.globalFontFamily
+            text: Database.catName(catId)
+        }
     }
 
     ListView {
@@ -83,18 +94,22 @@ Rectangle {
         anchors.bottomMargin: 4*physicalPlatformScale
         highlightMoveDuration: 250
         maximumFlickVelocity: flickVelocity
-        bottomMargin: View.navigationBarHeight
+        spacing: 8*physicalPlatformScale
+        topMargin: spacing
+        bottomMargin: View.navigationBarHeight + spacing
         clip: true
 
         model: ListModel {}
         delegate: Rectangle {
             id: item
-            width: poems_list.width
+            x: poems_list.spacing
+            width: poems_list.width - 2*x
             height: txt.height + 30*physicalPlatformScale
-            color: press? "#3B97EC" : "#00000000"
+            color: marea.pressed? "#CFDAFF" : "#ffffff"
+            border.color: "#cccccc"
+            border.width: 1*physicalPlatformScale
 
             property int pid: identifier
-            property alias press: marea.pressed
             property bool hasFavorite: false
             property bool hasNote: false
 
@@ -110,7 +125,7 @@ Rectangle {
                 y: parent.height/2 - height/2
                 font.pixelSize: Devices.isMobile? 10*fontsScale : 11*fontsScale
                 font.family: SApp.globalFontFamily
-                color: item.press? "#ffffff" : "#333333"
+                color: "#333333"
                 text: Database.poemName(pid)
                 wrapMode: TextInput.WordWrap
             }

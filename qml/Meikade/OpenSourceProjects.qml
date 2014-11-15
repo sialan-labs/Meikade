@@ -26,6 +26,7 @@ Rectangle {
 
     Rectangle {
         anchors.fill: title
+        anchors.topMargin: -View.statusBarHeight
         color: "#7BCF6A"
     }
 
@@ -33,6 +34,7 @@ Rectangle {
         id: title
         anchors.left: parent.left
         anchors.top: parent.top
+        anchors.topMargin: View.statusBarHeight
         anchors.right: parent.right
         titleFont.pixelSize: 13*fontsScale
         light: true
@@ -59,6 +61,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.bottomMargin: 20*physicalPlatformScale
         highlightMoveDuration: 250
+        bottomMargin: View.navigationBarHeight
         clip: true
         focus: true
 
@@ -143,8 +146,10 @@ Rectangle {
     }
 
     ScrollBar {
-        scrollArea: preference_list; height: preference_list.height; width: 6*physicalPlatformScale
-        anchors.right: preference_list.right; anchors.top: preference_list.top;color: "#000000"
+        scrollArea: preference_list; height: preference_list.height - View.navigationBarHeight
+        width: 6*physicalPlatformScale
+        anchors.right: preference_list.right; anchors.top: preference_list.top;
+        color: "#000000"
     }
 
     Connections{

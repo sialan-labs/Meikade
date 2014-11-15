@@ -70,6 +70,7 @@ Rectangle {
         width: portrait? parent.width : parent.width*2/3
         height: parent.height
         x: poems_page.viewMode? 0 : -width
+        rememberBar: true
 
         Behavior on x {
             NumberAnimation { easing.type: poems_page.easingType; duration: animations*poems_page.duration }

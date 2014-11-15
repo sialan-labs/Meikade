@@ -36,6 +36,8 @@ Rectangle {
     property bool editable: true
     property bool headerVisible: true
 
+    property bool rememberBar: false
+
     onPoemIdChanged: {
         view_list.refresh()
 
@@ -385,7 +387,7 @@ Rectangle {
         width: view_list.width
         height: 32*physicalPlatformScale
         clip: true
-        visible: view_list.contentY >= -height
+        visible: view_list.contentY >= -height && rememberBar
 
         PoemHeader{
             id: fake_header

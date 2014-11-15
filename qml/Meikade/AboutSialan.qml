@@ -26,6 +26,7 @@ Rectangle {
 
     Rectangle {
         anchors.fill: title
+        anchors.topMargin: -View.statusBarHeight
         color: "#5C90FF"
     }
 
@@ -33,6 +34,7 @@ Rectangle {
         id: title
         anchors.left: parent.left
         anchors.top: parent.top
+        anchors.topMargin: View.statusBarHeight
         anchors.right: parent.right
         titleFont.pixelSize: 13*fontsScale
         light: true

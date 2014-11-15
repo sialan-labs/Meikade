@@ -47,10 +47,10 @@ Rectangle {
 
     Category {
         id: category
-        topMargin: item.visible? item.height : itemsSpacing
+        topMargin: item.visible? item.height : 0
         height: cat_item.parent.height
         width: cat_item.parent.width
-        header: root? desc_component : footer
+        header: root? desc_component : spacer_component
 
         onCategorySelected: {
             var item = categoryComponent.createObject(baseFrame, {"catId": cid, "startY": rect.y, "startHeight": rect.height,
@@ -104,6 +104,14 @@ Rectangle {
         id: cat_title
         anchors.fill: item
         cid: category.catId
+    }
+
+    Component {
+        id: spacer_component
+        Item {
+            height: category.itemsSpacing
+            width: 2
+        }
     }
 
     Component {

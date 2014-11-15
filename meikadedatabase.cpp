@@ -42,6 +42,10 @@ public:
 
     QHash<int, QHash<QString,QVariant> > cats;
     QHash<int, QHash<QString,QVariant> > poems_cache;
+    QHash<int, QHash<QString,QVariant> > poets;
+
+    QHash<int,int> cat_poets;
+    QMap<QString, int> poets_cats;
 
     ThreadedFileSystem *tfs;
     bool initialized;
@@ -210,6 +214,16 @@ QList<int> MeikadeDatabase::poemVerses(int id)
     return result;
 }
 
+int MeikadeDatabase::catPoetId(int cat)
+{
+    return p->cat_poets.value(cat);
+}
+
+QList<int> MeikadeDatabase::poets() const
+{
+    return p->poets_cats.values();
+}
+
 QString MeikadeDatabase::verseText(int pid, int vid)
 {
     QSqlQuery query( p->db );
@@ -243,6 +257,7 @@ void MeikadeDatabase::init_buffer()
     p->childs.clear();
     p->cats.clear();
     p->parents.clear();
+    p->poets.clear();
 
     QSqlQuery cats_query( p->db );
     cats_query.prepare("SELECT id, parent_id, poet_id, text, url FROM cat");
@@ -258,6 +273,25 @@ void MeikadeDatabase::init_buffer()
 
         for( int i=0; i<record.count(); i++ )
             p->cats[id].insert( record.fieldName(i), record.value(i) );
+    }
+
+    QSqlQuery poets_query( p->db );
+    poets_query.prepare("SELECT id, name, cat_id, description FROM poet");
+    poets_query.exec();
+
+    while( poets_query.next() )
+    {
+        QSqlRecord record = poets_query.record();
+
+        int id = record.value(0).toInt();
+        int cat = record.value(2).toInt();
+        const QString & name = record.value(1).toString();
+
+        p->cat_poets[cat] = id;
+        p->poets_cats.insertMulti(name, cat);
+
+        for( int i=0; i<record.count(); i++ )
+            p->poets[id][record.fieldName(i)] = record.value(i);
     }
 }
 

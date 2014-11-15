@@ -127,5 +127,5 @@ Rectangle {
         }
     }
 
-    Component.onCompleted: main.backHandler = hafez_omen
+    Component.onCompleted: main.BackHandler = hafez_omen
 }

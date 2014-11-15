@@ -71,8 +71,8 @@ Item {
     }
 
     Component.onCompleted: {
-        fallBackHandler = backHandler
-        backHandler = menu_item
+        fallBackHandler = BackHandler
+        BackHandler = menu_item
     }
-    Component.onDestruction: if( backHandler == menu_item ) backHandler = fallBackHandler
+    Component.onDestruction: if( BackHandler == menu_item ) BackHandler = fallBackHandler
 }

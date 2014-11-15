@@ -29,16 +29,16 @@ Rectangle {
 
     onViewModeChanged: {
         if( viewMode ) {
-            if( backHandler )
-                fallBackHandler = backHandler
+            if( BackHandler )
+                fallBackHandler = BackHandler
 
-            backHandler = bhandler_item
+            BackHandler = bhandler_item
         }
         else {
             if( fallBackHandler )
-                backHandler = fallBackHandler
+                BackHandler = fallBackHandler
             else
-                backHandler = 0
+                BackHandler = 0
         }
 
         main.focus = true
@@ -53,5 +53,5 @@ Rectangle {
         }
     }
 
-    Component.onDestruction: if( fallBackHandler && backHandler == bhandler_item ) backHandler = fallBackHandler
+    Component.onDestruction: if( fallBackHandler && BackHandler == bhandler_item ) BackHandler = fallBackHandler
 }

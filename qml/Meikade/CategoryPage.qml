@@ -17,65 +17,70 @@
 */
 
 import QtQuick 2.0
-import QtGraphicalEffects 1.0
 import SialanTools 1.0
 
 Rectangle {
     id: page
     width: 100
     height: 62
+    color: "#dddddd"
 
-    property alias catId: category.catId
-    property real titleBarHeight: 320*physicalPlatformScale
-
-    onCatIdChanged: {
-        var fileName = catId
-        var filePath = "banners/" + fileName + ".jpg"
-        while( !Meikade.fileExists(filePath) ) {
-            fileName = Database.parentOf(fileName)
-            filePath = "banners/" + fileName + ".jpg"
+    ListObject {
+        id: list
+        onCountChanged: {
+            if( count <= 1 )
+                BackHandler.removeHandler(page)
+            else
+            if( count == 2 )
+                BackHandler.pushHandler(page, page.back)
         }
-
-        console.debug("Category switched:",catId)
-        image.source = filePath
     }
 
-    Image{
-        id: image
+    Connections {
+        target: Database
+        onInitializeFinished: {
+            var item = category_component.createObject(base_frame, {"catId": 0, "startY": 0, "startHeight": base_frame.height})
+            item.startInit = true
+            list.append(item)
+        }
+    }
+
+    Rectangle {
+        id: title_bar
         anchors.left: parent.left
         anchors.right: parent.right
-        height: page.titleBarHeight + category.itemHeight/4
-        y: catTop
-        fillMode: Image.PreserveAspectCrop
-        smooth: true
-        sourceSize: Qt.size(width,height)
-        scale: catTop>0? 1+2*catTop/page.titleBarHeight : 1
-        visible: false
-
-        property real catTop: -category.contentY/2 -page.titleBarHeight/2
+        anchors.top: parent.top
+        height: Devices.standardTitleBarHeight + View.statusBarHeight
+        color: "#880000"
     }
 
-    FastBlur {
-        anchors.fill: image
-        source: image
-        radius: (image.scale - 1)*35*physicalPlatformScale
-        scale: image.scale
-    }
-
-    Rectangle{
-        id: back
-        y: (category.contentY-category.itemHeight/4>0? -category.itemHeight/4 : -category.contentY) + category.itemHeight/4
-        height: parent.height-y
+    Item {
+        id: base_frame
+        anchors.top: title_bar.bottom
+        anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        color: "#ffffff"
     }
 
-    Category{
-        id: category
-        anchors.fill: parent
-        header: Item{
-            height: page.titleBarHeight
+    Component {
+        id: category_component
+
+        CategoryPageItem {
+            categoryComponent: category_component
+            baseFrame: base_frame
         }
+    }
+
+    function back() {
+        var item = list.takeLast()
+        item.end()
+        if( list.count != 0 )
+            list.last().outside = false
+
+        main.focus = true
+        if( list.count == 1 )
+            BackHandler.removeHandler(page)
+        else
+            return false
     }
 }

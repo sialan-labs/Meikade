@@ -84,7 +84,7 @@ Rectangle {
     }
 
     ScrollBar {
-        scrollArea: list; height: list.height; width: 8; anchors.top: list.top
+        scrollArea: list; height: list.height; anchors.top: list.top
         anchors.left: list.left; color: "#ffffff"
     }
 }

@@ -96,5 +96,5 @@ Rectangle {
         }
     }
 
-    Component.onCompleted: main.backHandler = poems_page
+    Component.onCompleted: main.BackHandler = poems_page
 }

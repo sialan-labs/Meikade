@@ -25,129 +25,65 @@ Item {
     height: 62
 
     property int catId: -1
+    property alias itemsSpacing: category_list.spacing
+    property real topMargin: 0
     property alias header: category_list.header
     property alias footer: category_list.footer
-    property alias contentY: category_list.contentY
-    property alias itemHeight: category_list.cellWidth
 
     onCatIdChanged: category_list.refresh()
 
-    Component {
-        id: itemComponent
-
-        Item {
-            id: item
-            width: category_list.cellWidth
-            height: width
-
-            property int identifier: -1
-            property int cid: identifier
-            property bool fakeItem: cid == -1
-            property bool hafezOmen: cid == 10001
-            property bool middlest: false
-
-            Rectangle {
-                id: back
-                anchors.centerIn: parent
-                width: (item.width+2)/1.414213562
-                height: width
-                transformOrigin: Item.Center
-                rotation: 45
-                color: marea.pressed? "#FFE9DD" : "#ffffff"
-                border.width: 1
-                border.color: "#33333333"
-                visible: item.middlest || marea.pressed
-            }
-
-            Item {
-                width: back.width*1.414213562 - txt.paintedHeight
-                height: maxHeight
-                anchors.centerIn: parent
-                visible: !item.fakeItem
-                clip: true
-
-                property real maxHeight: back.height/1.414213562
-
-                Text{
-                    id: txt
-                    anchors.fill: parent
-                    text: Database.catName(item.cid)
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font.pixelSize: Devices.isMobile? 9*fontsScale : 11*fontsScale
-                    font.family: SApp.globalFontFamily
-                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                }
-            }
-
-            ZoomItem{
-                id: zoom_item
-                file: item.hafezOmen? "HafezOmen.qml" : "CategoryPage.qml"
-                itemSize: areaFrame.width>areaFrame.height? (item.width*areaFrame.height/areaFrame.width)/2 : item.height/2
-                height: itemSize
-                width: height*areaFrame.width/areaFrame.height
-                anchors.centerIn: parent
-                visible: !item.fakeItem
-                onZoomedChanged: {
-                    category_list.interactive = !zoomed
-                }
-            }
-
-            MouseArea{
-                id: marea
-                transformOrigin: back.transformOrigin
-                rotation: back.rotation
-                width: back.width
-                height: back.height
-                anchors.centerIn: back
-                visible: !zoom_item.zoomed && !item.fakeItem
-                onClicked: {
-                    var childs = Database.childsOf(item.cid)
-                    if( childs.length === 0 && !item.hafezOmen )
-                        zoom_item.file = "PoemsPage.qml"
-
-                    zoom_item.zoom()
-                    if( zoom_item.item )
-                        zoom_item.item.catId = item.cid
-                }
-            }
-        }
-    }
+    signal categorySelected( int cid, variant rect )
+    signal poemSelected( int pid, variant rect )
 
     ListView {
         id: category_list
         anchors.fill: parent
-        bottomMargin: View.navigationBarHeight
+        bottomMargin: View.navigationBarHeight + spacing
         maximumFlickVelocity: flickVelocity
-
-        property real cellWidth: areaFrame.width/cellCount
-        property int cellCount: Math.floor(areaFrame.width/(150*physicalPlatformScale))
-        property variant list: new Array
-
-        onCellCountChanged: if( zoomedStack.isEmpty() ) refresh()
+        clip: true
+        spacing: 8*physicalPlatformScale
+        topMargin: spacing + category.topMargin
 
         model: ListModel {}
-        delegate: Item {
-            width: category_list.width
-            height: category_list.cellWidth/2
+        delegate: Rectangle {
+            id: item
+            x: category_list.spacing
+            width: category_list.width - 2*x
+            height: 55*physicalPlatformScale
+            border.width: 1*physicalPlatformScale
+            border.color: "#cccccc"
 
-            property bool middlest: index%2 == 0
-            property int cellCount: category_list.cellCount
-            property int indexMid: Math.floor(index/2)
-            property int length: middlest? cellCount : cellCount-1
-            property int startIdx: middlest? indexMid*(cellCount)+indexMid*(cellCount-1) :
-                                                 indexMid*(cellCount-1)+(indexMid+1)*(cellCount)
-
-            Row {
-                id: row
-                anchors.centerIn: parent
-                layoutDirection: Qt.RightToLeft
-                height: category_list.cellWidth
+            CategoryItem {
+                anchors.fill: parent
+                cid: identifier
+                root: category.catId == 0
             }
 
-            Component.onCompleted: {
-                for( var i=startIdx; i<startIdx+length; i++ ) {
-                    itemComponent.createObject(row,{"identifier":category_list.list[i],"middlest":middlest})
+            Image {
+                id: go_img
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.margins: 8*physicalPlatformScale
+                height: 20*physicalPlatformScale
+                width: height
+                sourceSize: Qt.size(width,height)
+                fillMode: Image.PreserveAspectFit
+                source: "icons/go.png"
+                opacity: 0.4
+            }
+
+            MouseArea{
+                id: marea
+                anchors.fill: parent
+                onClicked: {
+                    var childs = Database.childsOf(identifier)
+
+                    var map = item.mapToItem(category, 0, 0)
+                    var rect = Qt.rect(map.x, map.y, item.width, item.height)
+                    if( childs.length === 0 && !item.hafezOmen )
+                        category.poemSelected(identifier, rect)
+                    else
+                        category.categorySelected(identifier, rect)
                 }
             }
         }
@@ -155,19 +91,9 @@ Item {
         function refresh() {
             model.clear()
 
-            list = Database.childsOf(category.catId)
-
-            var sumCount = cellCount+cellCount-1
-            var length = Math.floor(list.length/sumCount)*2
-            var round = list.length%sumCount
-            if( round != 0 ) {
-                length++
-                if( round > cellCount )
-                    length++
-            }
-
-            for( var i=0; i<length; i++ ) {
-                model.append({"rowIdx":i})
+            var list = category.catId==0? Database.poets() : Database.childsOf(category.catId)
+            for( var i=0; i<list.length; i++ ) {
+                model.append({"identifier":list[i]})
             }
 
             focus = true
@@ -175,7 +101,7 @@ Item {
     }
 
     ScrollBar {
-        scrollArea: category_list; height: category_list.height; width: 8
+        scrollArea: category_list; height: category_list.height
         anchors.left: category_list.left; anchors.top: category_list.top
     }
 }

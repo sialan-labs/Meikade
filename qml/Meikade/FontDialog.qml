@@ -93,7 +93,7 @@ Item {
     }
 
     ScrollBar {
-        scrollArea: prefrences; height: prefrences.height; width: 8
+        scrollArea: prefrences; height: prefrences.height
         anchors.right: prefrences.right; anchors.top: prefrences.top; color: "#ffffff"
     }
 }

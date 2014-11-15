@@ -94,7 +94,7 @@ Item {
     }
 
     ScrollBar {
-        scrollArea: preference_list; height: preference_list.height; width: 8
+        scrollArea: preference_list; height: preference_list.height
         anchors.right: preference_list.right; anchors.top: preference_list.top;color: "#ffffff"
     }
 }

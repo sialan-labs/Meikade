@@ -24,15 +24,11 @@ SialanMain {
     id: main
     width: 500
     height: 680
-    onHeightChanged: calculate.restart()
-    onWidthChanged: calculate.restart()
     color: "#333333"
     mainFrame: main_scene
 
     property string globalPoemFontFamily: Devices.isIOS? "Droid Arabic Naskh" : poem_texts_font.name
     property real globalZoomAnimDurations: animations? 500 : 0
-
-    property alias zoomedStack: zoomed_stack
 
     property alias headerHeight: header.height
     property bool backButton: !Devices.isAndroid
@@ -45,7 +41,6 @@ SialanMain {
     property bool animations: Meikade.animations
 
     property variant areaFrame: area_frame
-    property variant backHandler
     property variant mainDialog
 
     property variant menuItem
@@ -55,15 +50,6 @@ SialanMain {
     QtObject {
         id: privates
         property bool animations: true
-    }
-
-    Timer {
-        id: calculate
-        interval: animations*500 + 100
-        repeat: false
-        onTriggered: {
-            zoomed_stack.refreshZoomItem()
-        }
     }
 
     Timer {
@@ -97,7 +83,6 @@ SialanMain {
     Connections {
         target: Database
         onInitializeFinished: {
-            cat_page.catId = 0
             if( init_wait ) {
                 init_wait.visible = false
                 init_wait.destroy()
@@ -117,24 +102,6 @@ SialanMain {
                 UserData.reconnect()
                 main.blockBack = false
             }
-        }
-    }
-
-    ListObject{
-        id: zoomed_stack
-
-        function refreshZoomItem(){
-            if( zoomed_stack.isEmpty() )
-                return
-
-            privates.animations = false
-            var newScale = 1
-            for( var i=0; i<zoomed_stack.count; i++ )
-                newScale = newScale*areaFrame.height/zoomed_stack.at(i).itemSize
-
-            areaFrame.scale = newScale
-            zoomed_stack.last().moveToFrame(newScale)
-            privates.animations = true
         }
     }
 
@@ -160,8 +127,8 @@ SialanMain {
                 main.menuItem.close()
             if( !search_bar.hide ) {
                 if( search_bar.viewMode )
-                    if( backHandler )
-                        backHandler.back()
+                    if( BackHandler )
+                        BackHandler.back()
 
                 search_bar.hide = true
             }
@@ -217,8 +184,10 @@ SialanMain {
         onMenuChanged: {
             if( main_scene.menu ) {
                 main_scene.x = -main_scene.menuSize
+                BackHandler.pushHandler(main_scene, main_scene.hideMenu)
             } else {
                 main_scene.x = 0
+                BackHandler.removeHandler(main_scene)
             }
         }
 
@@ -280,7 +249,7 @@ SialanMain {
                 y: header.about? parent.height : 0
                 anchors.left: parent.left
                 anchors.right: parent.right
-                height: 42*physicalPlatformScale+View.statusBarHeight
+                height: Devices.standardTitleBarHeight+View.statusBarHeight
 
                 Behavior on y {
                     NumberAnimation { easing.type: Easing.OutCubic; duration: animations*400 }
@@ -291,9 +260,9 @@ SialanMain {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
-                    height: 42*physicalPlatformScale
+                    height: Devices.standardTitleBarHeight
                     light: true
-                    visible: zoomedStack.count != 0
+                    visible: false
                 }
             }
         }
@@ -303,7 +272,7 @@ SialanMain {
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.topMargin: View.statusBarHeight
-            height: 42*physicalPlatformScale
+            height: Devices.standardTitleBarHeight
             width: height
             radius: 0
             normalColor: "#00000000"
@@ -330,6 +299,10 @@ SialanMain {
                 main.back()
                 Devices.hideKeyboard()
             }
+        }
+
+        function hideMenu() {
+            main_scene.menu = false
         }
     }
 
@@ -446,44 +419,7 @@ SialanMain {
         return item
     }
 
-    function repositionScale() {
-        calculate.restart()
-    }
-
     function back(){
-        if( main_scene.menu )
-            hideMenu()
-        else
-        if( !search_bar.hide ) {
-            if( search_bar.viewMode ) {
-                if( backHandler && backHandler.back() )
-                    return true
-            }
-            else
-                search_bar.hide = true
-        }
-        else
-        if( blockBack )
-            return true
-        else
-        if( rollerDialog.visible )
-            hideRollerDialog()
-        else
-        if( mainDialog )
-            hideMainDialog()
-        else
-        if( header.searchBar )
-            header.hideSearchBar()
-        else
-        if( backHandler && backHandler.back() )
-            return true
-        else
-        if( !zoomedStack.isEmpty() )
-            zoomedStack.last().unzoom()
-        else
-            return false
-
-        main.focus = true
-        return true
+        BackHandler.back()
     }
 }

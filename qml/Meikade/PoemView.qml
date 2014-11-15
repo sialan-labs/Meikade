@@ -41,16 +41,16 @@ Rectangle {
 
     onOnEditChanged: {
         if( onEdit ) {
-            if( backHandler )
-                fallBackHandler = backHandler
+            if( BackHandler )
+                fallBackHandler = BackHandler
 
-            backHandler = view
+            BackHandler = view
         }
         else {
             if( fallBackHandler )
-                backHandler = fallBackHandler
+                BackHandler = fallBackHandler
             else
-                backHandler = 0
+                BackHandler = 0
         }
     }
 
@@ -394,7 +394,7 @@ Rectangle {
     }
 
     ScrollBar {
-        scrollArea: view_list; height: view_list.height; width: 8
+        scrollArea: view_list; height: view_list.height
         anchors.left: view_list.left; anchors.top: view_list.top
     }
 

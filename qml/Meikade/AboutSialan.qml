@@ -83,7 +83,7 @@ Rectangle {
         }
 
         ScrollBar {
-            scrollArea: flickable; height: flickable.height; width: 8
+            scrollArea: flickable; height: flickable.height
             anchors.right: flickable.right; anchors.top: flickable.top; color: "#888888"
         }
 

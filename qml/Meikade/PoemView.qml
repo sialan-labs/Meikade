@@ -140,9 +140,13 @@ Rectangle {
         bottomMargin: View.navigationBarHeight
 
         property int highlightedVid: -1
-        footer: Rectangle {
+        footer: Item {
             width: view_list.width
-            height: view.height/3
+            height: 1
+            Rectangle {
+                width: parent.width
+                height: view.height
+            }
         }
 
         onCurrentIndexChanged: {
@@ -211,10 +215,10 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     if( view.editable ) {
-                        if( view_list.currentIndex == index )
-                            view_list.currentIndex = -1
-                        else
-                            view_list.currentIndex = index
+                        var itemObj = showBottomPanel(share_component, true)
+                        itemObj.poemId = pitem.pid
+                        itemObj.vid = pitem.vid
+                        itemObj.text = pitem.text
                     }
 
                     view.itemSelected(pitem.pid,pitem.vid)
@@ -387,7 +391,7 @@ Rectangle {
         width: view_list.width
         height: 32*physicalPlatformScale
         clip: true
-        visible: view_list.contentY >= -height && rememberBar
+        visible: header_back.contentY >= -height && rememberBar
 
         PoemHeader{
             id: fake_header
@@ -402,6 +406,103 @@ Rectangle {
     ScrollBar {
         scrollArea: view_list; height: view_list.height-View.navigationBarHeight
         anchors.left: view_list.left; anchors.top: view_list.top
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: BackHandler.back()
+        visible: bottomPanel.item? true : false
+    }
+
+    Component {
+        id: share_component
+        Column {
+            id: poem_edit
+            width: parent.width
+
+            property int poemId
+            property int vid
+            property bool favorited: false
+            property bool signalBlocker: false
+            property string text
+
+            onVidChanged: {
+                if( vid == -1 )
+                    return
+                signalBlocker = true
+                favorited = UserData.isFavorited(poemId,vid)
+                signalBlocker = false
+            }
+            onFavoritedChanged: {
+                if( signalBlocker )
+                    return
+                if( favorited ) {
+                    UserData.favorite(poemId,vid)
+                    showTooltip( qsTr("Favorited") )
+                } else {
+                    UserData.unfavorite(poemId,vid)
+                    showTooltip( qsTr("Unfavorited") )
+                }
+            }
+
+            Button {
+                width: parent.width
+                height: 40*physicalPlatformScale
+                text:   qsTr("Copy")
+                textColor: "#333333"
+                textFont.bold: false
+                textFont.pixelSize: 10*fontsScale
+                onClicked: {
+                    var subject = Database.poemName(poem_edit.poemId)
+                    var poet
+                    var catId = Database.poemCat(poem_edit.poemId)
+                    while( catId ) {
+                        poet = Database.catName(catId)
+                        subject = Database.catName(catId) + ", " + subject
+                        catId = Database.parentOf(catId)
+                    }
+
+                    var message = poem_edit.text + "\n\n" + poet
+
+                    Devices.clipboard = message
+                    hideBottomPanel()
+                }
+            }
+            Button {
+                width: parent.width
+                height: 40*physicalPlatformScale
+                text:   qsTr("Share")
+                textColor: "#333333"
+                textFont.bold: false
+                textFont.pixelSize: 10*fontsScale
+                onClicked: {
+                    var subject = Database.poemName(poem_edit.poemId)
+                    var poet
+                    var catId = Database.poemCat(poem_edit.poemId)
+                    while( catId ) {
+                        poet = Database.catName(catId)
+                        subject = Database.catName(catId) + ", " + subject
+                        catId = Database.parentOf(catId)
+                    }
+
+                    var message = poem_edit.text + "\n\n" + poet
+                    Devices.share(subject,message)
+                    hideBottomPanel()
+                }
+            }
+            Button {
+                width: parent.width
+                height: 40*physicalPlatformScale
+                text: poem_edit.favorited? qsTr("Unfavorite") : qsTr("Favorite")
+                textColor: "#333333"
+                textFont.bold: false
+                textFont.pixelSize: 10*fontsScale
+                onClicked: {
+                    poem_edit.favorited = !poem_edit.favorited
+                    hideBottomPanel()
+                }
+            }
+        }
     }
 
     function goTo(vid){

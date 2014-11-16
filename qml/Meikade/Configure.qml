@@ -48,41 +48,24 @@ BackHandlerView {
         }
     }
 
-    Row {
-        id: logo
+    Text {
+        id: configure_txt
         anchors.top: parent.top
         anchors.margins: 12*physicalPlatformScale
         anchors.topMargin: View.statusBarHeight
-        x: backButton? parent.width/2 - width/2 : (Meikade.languageDirection == Qt.RightToLeft? configure.width - width - 12*physicalPlatformScale : 12*physicalPlatformScale)
+        anchors.horizontalCenter: parent.horizontalCenter
         height: headerHeight
-        spacing: 6*physicalPlatformScale
-        layoutDirection: Meikade.languageDirection
-
-        Image {
-            anchors.top: logo.top
-            anchors.bottom: logo.bottom
-            anchors.margins: 6
-            width: height
-            source: height>48? "icons/light_config_64.png" : "icons/light_config_32.png"
-            sourceSize.width: width
-            sourceSize.height: height
-            visible: !backButton
-        }
-
-        Text {
-            id: configure_txt
-            anchors.verticalCenter: logo.verticalCenter
-            font.pixelSize: 12*fontsScale
-            font.family: SApp.globalFontFamily
-            color: "#ffffff"
-        }
+        verticalAlignment: Text.AlignVCenter
+        font.pixelSize: 12*fontsScale
+        font.family: SApp.globalFontFamily
+        color: "#ffffff"
     }
 
     Rectangle {
         id: frame
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: logo.bottom
+        anchors.top: configure_txt.bottom
         anchors.bottom: parent.bottom
         color: "#333333"
         clip: true
@@ -166,8 +149,8 @@ BackHandlerView {
                     model.clear()
 
                     model.append({ "name": qsTr("Backup & Restore"), "file": "BackupDialog.qml", "check": false, "pr":""})
-                    model.append({ "name": qsTr("Fonts"), "file": "FontDialog.qml", "check": false, "pr":""})
-                    model.append({ "name": qsTr("Animations"), "file": "", "check": true, "pr":"animations"})
+//                    model.append({ "name": qsTr("Fonts"), "file": "FontDialog.qml", "check": false, "pr":""})
+//                    model.append({ "name": qsTr("Animations"), "file": "", "check": true, "pr":"animations"})
                     model.append({ "name": qsTr("Languages"), "file": "LanguageSelector.qml", "check": false, "pr":""})
                 }
             }
@@ -216,10 +199,9 @@ BackHandlerView {
     Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: logo.bottom
+        anchors.top: configure_txt.bottom
         height: 1*physicalPlatformScale
         color: "#888888"
-        visible: backButton
     }
 
     Connections{

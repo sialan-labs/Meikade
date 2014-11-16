@@ -21,6 +21,7 @@ Rectangle {
 
     property Component categoryComponent
     property Component poemsComponent
+    property Component hafezOmenComponent
     property variant baseFrame
 
     Behavior on x {
@@ -63,8 +64,14 @@ Rectangle {
             list.append(item)
         }
         onPoemSelected: {
-            var item = poemsComponent.createObject(baseFrame, {"catId": pid})
-            item.inited = true
+            var item
+            if( pid < 10000 ) {
+                item = poemsComponent.createObject(baseFrame, {"catId": pid})
+                item.inited = true
+            } else {
+                item = hafezOmenComponent.createObject( baseFrame, {"catId": pid} )
+                item.inited = true
+            }
 
             if( list.count != 0 )
                 list.last().outside = true

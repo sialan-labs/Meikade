@@ -30,6 +30,25 @@
 #include <QDir>
 #include <QDebug>
 
+const QString sort_string = QString::fromUtf8("اَُِبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی");
+
+bool sortPersianString( const QString & a, const QString & b )
+{
+    for( int i=0; i<a.size() && i<b.size(); i++ )
+    {
+        const QChar & ca = a[i];
+        const QChar & cb = b[i];
+
+        const int ia = sort_string.indexOf(ca);
+        const int ib = sort_string.indexOf(cb);
+
+        if( ia != ib )
+            return ia < ib;
+    }
+
+    return a.size() < b.size();
+}
+
 class MeikadeDatabasePrivate
 {
 public:
@@ -45,7 +64,8 @@ public:
     QHash<int, QHash<QString,QVariant> > poets;
 
     QHash<int,int> cat_poets;
-    QMap<QString, int> poets_cats;
+    QHash<QString, int> poets_cats;
+    QList<int> sorted_poets;
 
     ThreadedFileSystem *tfs;
     bool initialized;
@@ -221,7 +241,7 @@ int MeikadeDatabase::catPoetId(int cat)
 
 QList<int> MeikadeDatabase::poets() const
 {
-    return p->poets_cats.values();
+    return p->sorted_poets;
 }
 
 QString MeikadeDatabase::poetDesctiption(int id)
@@ -298,6 +318,12 @@ void MeikadeDatabase::init_buffer()
         for( int i=0; i<record.count(); i++ )
             p->poets[cat][record.fieldName(i)] = record.value(i);
     }
+
+    p->sorted_poets.clear();
+    QStringList sort_tmp = p->poets_cats.keys();
+    qStableSort( sort_tmp.begin(), sort_tmp.end(), sortPersianString );
+    foreach( const QString & name, sort_tmp )
+        p->sorted_poets << p->poets_cats.value(name);
 }
 
 MeikadeDatabase::~MeikadeDatabase()

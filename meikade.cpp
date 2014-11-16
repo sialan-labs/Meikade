@@ -318,7 +318,7 @@ void Meikade::setAnimations(bool stt)
 
 bool Meikade::animations() const
 {
-    static bool def = p->devices->isIOS() || ( p->system->cpuCores() > 1 && p->system->cpuFreq()/1000 >= 1024 );
+    static bool def = true; //p->devices->isIOS() || ( p->system->cpuCores() > 1 && p->system->cpuFreq()/1000 >= 1024 );
     return settings()->value("General/animations",def).toBool();
 }
 

@@ -48,7 +48,7 @@ Rectangle {
                 anchors.right: item_rect.left
                 anchors.margins: 20*physicalPlatformScale
                 y: parent.height/2 - height/2 -1*physicalPlatformScale
-                font.pixelSize: 11*fontsScale
+                font.pixelSize: Devices.isMobile? 9*fontsScale : 11*fontsScale
                 font.family: SApp.globalFontFamily
                 color: "#ffffff"
                 horizontalAlignment: Text.AlignRight
@@ -75,7 +75,7 @@ Rectangle {
             model.append({"name":qsTr("Home")     , "fileName":""})
             model.append({"name":qsTr("Search")   , "fileName":"cmd:search"})
             model.append({"name":qsTr("Bookmarks"), "fileName":"Bookmarks.qml"})
-            model.append({"name":qsTr("Notes")    , "fileName":"Notes.qml"})
+//            model.append({"name":qsTr("Notes")    , "fileName":"Notes.qml"})
             model.append({"name":qsTr("Configure"), "fileName":"Configure.qml"})
             model.append({"name":qsTr("OpenSource Projecs"), "fileName":"OpenSourceProjects.qml"})
             model.append({"name":qsTr("About")    , "fileName":"About.qml"})

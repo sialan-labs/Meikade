@@ -34,6 +34,10 @@ Rectangle {
     onViewModeChanged: {
         if( !viewMode )
             omen_frame.refresh()
+        if( viewMode )
+            BackHandler.pushHandler(hafez_omen, hafez_omen.back)
+        else
+            BackHandler.removeHandler(hafez_omen)
     }
 
     Image {
@@ -119,11 +123,6 @@ Rectangle {
     }
 
     function back() {
-        if( hafez_omen.viewMode ) {
-            switchPages()
-            return true
-        } else {
-            return false
-        }
+        hafez_omen.viewMode = false
     }
 }

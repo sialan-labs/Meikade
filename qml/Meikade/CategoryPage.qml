@@ -69,6 +69,35 @@ Rectangle {
             categoryComponent: category_component
             poemsComponent: poems_component
             baseFrame: base_frame
+            hafezOmenComponent: hafez_omen_component
+        }
+    }
+
+    Component {
+        id: hafez_omen_component
+        HafezOmen {
+            id: homen
+            width: parent.width
+            height: parent.height
+            x: inited? 0 : -width
+
+            property bool inited: false
+            property bool outside: false
+
+            Behavior on x {
+                NumberAnimation{ easing.type: Easing.OutCubic; duration: 400 }
+            }
+
+            Timer {
+                id: destroy_timer
+                interval: 400
+                onTriggered: homen.destroy()
+            }
+
+            function end() {
+                inited = false
+                destroy_timer.restart()
+            }
         }
     }
 
@@ -102,6 +131,9 @@ Rectangle {
     }
 
     function back() {
+        if( list.count == 1 )
+            return
+
         var item = list.takeLast()
         item.end()
         if( list.count != 0 )

@@ -155,7 +155,7 @@ Rectangle {
     }
 
     ScrollBar {
-        scrollArea: poems_list; height: poems_list.height
+        scrollArea: poems_list; height: poems_list.height - View.navigationBarHeight
         anchors.left: poems_list.left; anchors.top: poems_list.top
         color: "#333333"
     }

@@ -12,7 +12,7 @@
 <context>
     <name>AboutSialan</name>
     <message>
-        <location filename="../qml/Meikade/AboutSialan.qml" line="115"/>
+        <location filename="../qml/Meikade/AboutSialan.qml" line="117"/>
         <source>Check Sialan website</source>
         <translation type="unfinished"></translation>
     </message>
@@ -59,6 +59,16 @@
     </message>
 </context>
 <context>
+    <name>Category</name>
+    <message>
+        <location filename="../qml/Meikade/Category.qml" line="113"/>
+        <source>This is a problem to loading poets.
+Please contact us:
+contact@sialan.org</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CheckBox</name>
     <message>
         <location filename="../sialantools/qml/SialanTools/CheckBox.qml" line="101"/>
@@ -74,27 +84,17 @@
 <context>
     <name>Configure</name>
     <message>
-        <location filename="../qml/Meikade/Configure.qml" line="168"/>
+        <location filename="../qml/Meikade/Configure.qml" line="151"/>
         <source>Backup &amp; Restore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/Configure.qml" line="169"/>
-        <source>Fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/Meikade/Configure.qml" line="170"/>
-        <source>Animations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/Meikade/Configure.qml" line="171"/>
+        <location filename="../qml/Meikade/Configure.qml" line="154"/>
         <source>Languages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/Configure.qml" line="232"/>
+        <location filename="../qml/Meikade/Configure.qml" line="214"/>
         <source>Configure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -146,6 +146,26 @@
     </message>
 </context>
 <context>
+    <name>FavoriteMessage</name>
+    <message>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="12"/>
+        <source>Thank you for choosing Meikade.
+If you are like this app, please rate us on Google play or Bazaar.
+Thank you.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="23"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="35"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GetPassDialog</name>
     <message>
         <location filename="../sialantools/qml/SialanTools/GetPassDialog.qml" line="171"/>
@@ -176,7 +196,7 @@
 <context>
     <name>HafezOmen</name>
     <message>
-        <location filename="../qml/Meikade/HafezOmen.qml" line="61"/>
+        <location filename="../qml/Meikade/HafezOmen.qml" line="65"/>
         <source>Intent and Tap on the screen</source>
         <translation type="unfinished"></translation>
     </message>
@@ -220,11 +240,6 @@
     <message>
         <location filename="../qml/Meikade/MainMenu.qml" line="77"/>
         <source>Bookmarks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/Meikade/MainMenu.qml" line="78"/>
-        <source>Notes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -312,12 +327,12 @@
 <context>
     <name>OpenSourceProjects</name>
     <message>
-        <location filename="../qml/Meikade/OpenSourceProjects.qml" line="50"/>
+        <location filename="../qml/Meikade/OpenSourceProjects.qml" line="52"/>
         <source>List of other opensource projects used in Meikade.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/OpenSourceProjects.qml" line="156"/>
+        <location filename="../qml/Meikade/OpenSourceProjects.qml" line="161"/>
         <source>Open Source Projects</source>
         <translation type="unfinished"></translation>
     </message>
@@ -358,6 +373,39 @@
     <message>
         <location filename="../qml/Meikade/PoemHeader.qml" line="59"/>
         <source>Unfavorited</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PoemView</name>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="441"/>
+        <source>Favorited</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="444"/>
+        <source>Unfavorited</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="451"/>
+        <source>Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="474"/>
+        <source>Share</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="496"/>
+        <source>Unfavorite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="496"/>
+        <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -737,7 +785,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/Meikade/main.qml" line="298"/>
+        <location filename="../qml/Meikade/main.qml" line="302"/>
         <source>Meikade</source>
         <translation type="unfinished"></translation>
     </message>

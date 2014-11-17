@@ -71,6 +71,10 @@ SialanMain {
             var initWaitComponent = Qt.createComponent("InitializeWait.qml")
             init_wait = initWaitComponent.createObject(main)
         }
+
+        Meikade.runCount++
+        if( Meikade.runCount == 2 )
+            showFavoriteMessage()
     }
 
     Connections{
@@ -452,6 +456,11 @@ SialanMain {
         var item = component.createObject(main_dialog_frame)
         showMainDialog(item)
         return item
+    }
+
+    function showFavoriteMessage() {
+        var component = Qt.createComponent("FavoriteMessage.qml")
+        messageDialog.show(component)
     }
 
     function back(){

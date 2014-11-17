@@ -106,4 +106,11 @@ Item {
         anchors.left: category_list.left; anchors.top: category_list.top
         anchors.topMargin: topMargin
     }
+
+    Text {
+        anchors.centerIn: parent
+        font.pixelSize: 9*fontsScale
+        text: qsTr("This is a problem to loading poets.\nPlease contact us:\ncontact@sialan.org")
+        visible: category_list.count == 0
+    }
 }

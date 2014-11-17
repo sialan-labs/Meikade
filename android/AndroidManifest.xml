@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<manifest android:versionName="1.0.1" xmlns:android="http://schemas.android.com/apk/res/android" package="org.sialan.Meikade" android:installLocation="auto" android:versionCode="2">
+<manifest android:versionName="1.0.2" xmlns:android="http://schemas.android.com/apk/res/android" package="org.sialan.Meikade" android:installLocation="auto" android:versionCode="3">
     <application android:label="Meikade" android:icon="@drawable/icon" android:name="org.sialan.android.SialanApplication">
         <activity android:screenOrientation="portrait" android:label="@string/app_name" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="org.sialan.android.SialanActivity">
             <intent-filter>

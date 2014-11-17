@@ -31,6 +31,7 @@ class Meikade : public QObject
     Q_PROPERTY(bool animations READ animations WRITE setAnimations NOTIFY animationsChanged)
     Q_PROPERTY(QString resourcePath READ resourcePath NOTIFY resourcePathChanged)
     Q_PROPERTY(QString currentLanguage READ currentLanguage WRITE setCurrentLanguage NOTIFY currentLanguageChanged)
+    Q_PROPERTY(int runCount READ runCount WRITE setRunCount NOTIFY runCountChanged)
     Q_PROPERTY( Qt::LayoutDirection  languageDirection  READ languageDirection NOTIFY languageDirectionChanged )
     Q_OBJECT
 public:
@@ -71,6 +72,9 @@ public:
     void setPoemsFont( const QString & name );
     QString poemsFont() const;
 
+    int runCount() const;
+    void setRunCount( int cnt );
+
     static QSettings *settings();
 
 public slots:
@@ -87,6 +91,8 @@ signals:
     void currentLanguageChanged();
     void languageDirectionChanged();
     void resourcePathChanged();
+
+    void runCountChanged();
 
 protected:
     bool eventFilter(QObject *o, QEvent *e);

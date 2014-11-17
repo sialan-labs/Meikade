@@ -24,7 +24,7 @@
 <context>
     <name>AboutSialan</name>
     <message>
-        <location filename="../qml/Meikade/AboutSialan.qml" line="115"/>
+        <location filename="../qml/Meikade/AboutSialan.qml" line="117"/>
         <source>Check Sialan website</source>
         <translation>دیدن سایت سیالان</translation>
     </message>
@@ -83,6 +83,18 @@
     </message>
 </context>
 <context>
+    <name>Category</name>
+    <message>
+        <location filename="../qml/Meikade/Category.qml" line="113"/>
+        <source>This is a problem to loading poets.
+Please contact us:
+contact@sialan.org</source>
+        <translation>مشکل در بارگذاری لیست شعرا.
+لطفا با ما تماس بگیرید:
+contact@sialan.org</translation>
+    </message>
+</context>
+<context>
     <name>CheckBox</name>
     <message>
         <location filename="../sialantools/qml/SialanTools/CheckBox.qml" line="101"/>
@@ -98,7 +110,7 @@
 <context>
     <name>Configure</name>
     <message>
-        <location filename="../qml/Meikade/Configure.qml" line="168"/>
+        <location filename="../qml/Meikade/Configure.qml" line="151"/>
         <source>Backup &amp; Restore</source>
         <translation>بکاپ و بازیابی</translation>
     </message>
@@ -107,22 +119,20 @@
         <translation type="obsolete">صفحه نمایش</translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/Configure.qml" line="169"/>
         <source>Fonts</source>
-        <translation>فونت‌ها</translation>
+        <translation type="obsolete">فونت‌ها</translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/Configure.qml" line="170"/>
         <source>Animations</source>
-        <translation>انیمیشن‌ها</translation>
+        <translation type="obsolete">انیمیشن‌ها</translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/Configure.qml" line="171"/>
+        <location filename="../qml/Meikade/Configure.qml" line="154"/>
         <source>Languages</source>
         <translation>زبان برنامه</translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/Configure.qml" line="232"/>
+        <location filename="../qml/Meikade/Configure.qml" line="214"/>
         <source>Configure</source>
         <translation>تنظیمات</translation>
     </message>
@@ -178,6 +188,28 @@
     </message>
 </context>
 <context>
+    <name>FavoriteMessage</name>
+    <message>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="12"/>
+        <source>Thank you for choosing Meikade.
+If you are like this app, please rate us on Google play or Bazaar.
+Thank you.</source>
+        <translation>از شما بخاطر انتخاب این برنامه سپاس‌گذاریم.
+اگر از این برنامه خوشتان آمده، لطفا به می‌کده در بازار یا گوگل‌پلی امتیاز دهید.
+ممنون.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="23"/>
+        <source>Cancel</source>
+        <translation>انصراف</translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="35"/>
+        <source>OK</source>
+        <translation>باشه</translation>
+    </message>
+</context>
+<context>
     <name>GetPassDialog</name>
     <message>
         <location filename="../sialantools/qml/SialanTools/GetPassDialog.qml" line="171"/>
@@ -208,7 +240,7 @@
 <context>
     <name>HafezOmen</name>
     <message>
-        <location filename="../qml/Meikade/HafezOmen.qml" line="61"/>
+        <location filename="../qml/Meikade/HafezOmen.qml" line="65"/>
         <source>Intent and Tap on the screen</source>
         <translation>نیت کنید و بر انگشتتان را بر روی صفحه بزنید</translation>
     </message>
@@ -263,9 +295,8 @@
         <translation>علاقه‌مندی‌ها</translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/MainMenu.qml" line="78"/>
         <source>Notes</source>
-        <translation>یادداشت‌ها</translation>
+        <translation type="obsolete">یادداشت‌ها</translation>
     </message>
     <message>
         <location filename="../qml/Meikade/MainMenu.qml" line="79"/>
@@ -356,12 +387,12 @@
 <context>
     <name>OpenSourceProjects</name>
     <message>
-        <location filename="../qml/Meikade/OpenSourceProjects.qml" line="50"/>
+        <location filename="../qml/Meikade/OpenSourceProjects.qml" line="52"/>
         <source>List of other opensource projects used in Meikade.</source>
         <translation>لیست پروژه‌های منبع بازی که در میکده از آن‌ها استفاده شده است.</translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/OpenSourceProjects.qml" line="156"/>
+        <location filename="../qml/Meikade/OpenSourceProjects.qml" line="161"/>
         <source>Open Source Projects</source>
         <translation>پروژه‌های منبع باز</translation>
     </message>
@@ -446,6 +477,39 @@
         <location filename="../qml/Meikade/PoemHeader.qml" line="59"/>
         <source>Unfavorited</source>
         <translation>از علاقه‌مند‌ی‌ها پاک شد</translation>
+    </message>
+</context>
+<context>
+    <name>PoemView</name>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="441"/>
+        <source>Favorited</source>
+        <translation>به علاقه‌مند‌ی‌ها اضافه شد</translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="444"/>
+        <source>Unfavorited</source>
+        <translation>از علاقه‌مند‌ی‌ها پاک شد</translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="451"/>
+        <source>Copy</source>
+        <translation>کپی</translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="474"/>
+        <source>Share</source>
+        <translation>به اشتراک گذاری</translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="496"/>
+        <source>Unfavorite</source>
+        <translation>حذف از علاقه‌مندی‌ها</translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/PoemView.qml" line="496"/>
+        <source>Favorite</source>
+        <translation>اضافه به علاقه‌مندی‌ها</translation>
     </message>
 </context>
 <context>
@@ -824,7 +888,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/Meikade/main.qml" line="298"/>
+        <location filename="../qml/Meikade/main.qml" line="302"/>
         <source>Meikade</source>
         <translation>مِی‌کده</translation>
     </message>

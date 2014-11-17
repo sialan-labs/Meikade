@@ -337,6 +337,20 @@ QString Meikade::poemsFont() const
     return p->poem_font;
 }
 
+int Meikade::runCount() const
+{
+    return settings()->value("General/runCount",0).toInt();
+}
+
+void Meikade::setRunCount(int cnt)
+{
+    if( runCount() == cnt )
+        return;
+
+    settings()->setValue("General/runCount", cnt);
+    emit runCountChanged();
+}
+
 QSettings *Meikade::settings()
 {
     static QSettings *stngs = new QSettings( HOME_PATH + "/config.ini", QSettings::IniFormat );

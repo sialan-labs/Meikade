@@ -34,6 +34,7 @@ public:
 
 signals:
     void initializeFinished();
+    void copyError();
 
 public slots:
     void initialize();
@@ -60,7 +61,7 @@ private:
     void init_buffer();
 
 private slots:
-    void initialize_prv();
+    void initialize_prv(const QString & dst);
 
 private:
     MeikadeDatabasePrivate *p;

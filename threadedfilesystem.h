@@ -34,6 +34,7 @@ public slots:
 
 signals:
     void copyFinished( const QString & dst );
+    void copyError();
 
 private slots:
     void copy_prv( const QString & src, const QString & dst );

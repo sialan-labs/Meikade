@@ -142,6 +142,21 @@ contact@sialan.org</translation>
     </message>
 </context>
 <context>
+    <name>CopyErrorMessage</name>
+    <message>
+        <location filename="../qml/Meikade/CopyErrorMessage.qml" line="18"/>
+        <source>Error extracting database. There is no free space on your sd-card.
+Meikade need 150MB free space on your memory.</source>
+        <translation>خطا... بر روی حافظه‌ی داخلی دستگاه شما فضای کافی برای داده‌های می‌کده نیست.
+می‌کده برای داده‌های خود نیاز به ۱۵۰ مگابایت فضای خالی دارد.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/CopyErrorMessage.qml" line="29"/>
+        <source>Dismiss</source>
+        <translation>بستن</translation>
+    </message>
+</context>
+<context>
     <name>CursorPicker</name>
     <message>
         <location filename="../sialantools/qml/SialanTools/CursorPicker.qml" line="360"/>
@@ -190,23 +205,23 @@ contact@sialan.org</translation>
 <context>
     <name>FavoriteMessage</name>
     <message>
-        <location filename="../qml/Meikade/FavoriteMessage.qml" line="12"/>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="18"/>
         <source>Thank you for choosing Meikade.
 If you are like this app, please rate us on Google play or Bazaar.
 Thank you.</source>
         <translation>از شما بخاطر انتخاب این برنامه سپاس‌گذاریم.
-اگر از این برنامه خوشتان آمده، لطفا به می‌کده در بازار یا گوگل‌پلی امتیاز دهید.
+اگر از این برنامه خوشتان آمده، لطفا برای حمایت از ما، به می‌کده در بازار یا گوگل‌پلی امتیاز دهید.
 ممنون.</translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/FavoriteMessage.qml" line="23"/>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="29"/>
         <source>Cancel</source>
         <translation>انصراف</translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/FavoriteMessage.qml" line="35"/>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="41"/>
         <source>OK</source>
-        <translation>باشه</translation>
+        <translation>برو به بازار</translation>
     </message>
 </context>
 <context>
@@ -888,7 +903,7 @@ Thank you.</source>
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/Meikade/main.qml" line="302"/>
+        <location filename="../qml/Meikade/main.qml" line="303"/>
         <source>Meikade</source>
         <translation>مِی‌کده</translation>
     </message>

@@ -19,6 +19,7 @@
 #include "threadedfilesystem.h"
 
 #include <QFile>
+#include <QFileInfo>
 #include <QThread>
 #include <QDebug>
 
@@ -60,8 +61,23 @@ void ThreadedFileSystem::copy(const QString &src, const QString &dst)
 void ThreadedFileSystem::copy_prv(const QString &src, const QString &dst)
 {
     QThread::sleep(3);
-    QFile::copy(src,dst);
-    emit copyFinished(dst);
+
+    QFileInfo src_info(src);
+    QFileInfo dst_info(dst);
+    if( src_info.size() != dst_info.size() )
+        QFile::remove(dst);
+    else
+    {
+        emit copyFinished(dst);
+        return;
+    }
+
+
+    bool done = QFile::copy(src,dst);
+    if( done )
+        emit copyFinished(dst);
+    else
+        emit copyError();
 }
 
 ThreadedFileSystem::~ThreadedFileSystem()

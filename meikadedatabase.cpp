@@ -106,7 +106,9 @@ void MeikadeDatabase::initialize()
 
     if( force || !Meikade::settings()->value("initialize/data_db",false).toBool() )
     {
-        connect( p->tfs, SIGNAL(copyFinished(QString)), SLOT(initialize_prv()), Qt::QueuedConnection );
+        connect( p->tfs, SIGNAL(copyFinished(QString)), SLOT(initialize_prv(QString)), Qt::QueuedConnection );
+        connect( p->tfs, SIGNAL(copyError()), SIGNAL(copyError()), Qt::QueuedConnection );
+
 #ifdef Q_OS_ANDROID
         p->tfs->copy(p->src ,p->path);
 #else
@@ -114,14 +116,18 @@ void MeikadeDatabase::initialize()
 #endif
     }
     else {
-        QMetaObject::invokeMethod( this, "initialize_prv", Qt::QueuedConnection );
+        QMetaObject::invokeMethod( this, "initialize_prv", Qt::QueuedConnection, Q_ARG(QString,p->path) );
         p->initialized = true;
     }
 }
 
-void MeikadeDatabase::initialize_prv()
+void MeikadeDatabase::initialize_prv(const QString &dst)
 {
-    disconnect( p->tfs, SIGNAL(copyFinished(QString)), this, SLOT(initialize_prv()) );
+    if( dst.isEmpty() )
+        return;
+
+    disconnect( p->tfs, SIGNAL(copyFinished(QString)), this, SLOT(initialize_prv(QString)) );
+    disconnect( p->tfs, SIGNAL(copyError()), this, SIGNAL(copyError()) );
 
     Meikade::settings()->setValue("initialize/data_db",true);
     QFile(p->path).setPermissions(QFileDevice::ReadUser|QFileDevice::ReadGroup);

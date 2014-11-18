@@ -92,6 +92,7 @@ SialanMain {
 
     Connections {
         target: Database
+        onCopyError: showCopyErrorMessage()
         onInitializeFinished: {
             if( init_wait ) {
                 init_wait.visible = false
@@ -460,6 +461,11 @@ SialanMain {
 
     function showFavoriteMessage() {
         var component = Qt.createComponent("FavoriteMessage.qml")
+        messageDialog.show(component)
+    }
+
+    function showCopyErrorMessage() {
+        var component = Qt.createComponent("CopyErrorMessage.qml")
         messageDialog.show(component)
     }
 

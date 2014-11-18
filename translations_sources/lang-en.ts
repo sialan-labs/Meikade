@@ -100,6 +100,20 @@ contact@sialan.org</source>
     </message>
 </context>
 <context>
+    <name>CopyErrorMessage</name>
+    <message>
+        <location filename="../qml/Meikade/CopyErrorMessage.qml" line="18"/>
+        <source>Error extracting database. There is no free space on your sd-card.
+Meikade need 150MB free space on your memory.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Meikade/CopyErrorMessage.qml" line="29"/>
+        <source>Dismiss</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CursorPicker</name>
     <message>
         <location filename="../sialantools/qml/SialanTools/CursorPicker.qml" line="360"/>
@@ -148,19 +162,19 @@ contact@sialan.org</source>
 <context>
     <name>FavoriteMessage</name>
     <message>
-        <location filename="../qml/Meikade/FavoriteMessage.qml" line="12"/>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="18"/>
         <source>Thank you for choosing Meikade.
 If you are like this app, please rate us on Google play or Bazaar.
 Thank you.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/FavoriteMessage.qml" line="23"/>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="29"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Meikade/FavoriteMessage.qml" line="35"/>
+        <location filename="../qml/Meikade/FavoriteMessage.qml" line="41"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -785,7 +799,7 @@ Thank you.</source>
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/Meikade/main.qml" line="302"/>
+        <location filename="../qml/Meikade/main.qml" line="303"/>
         <source>Meikade</source>
         <translation type="unfinished"></translation>
     </message>

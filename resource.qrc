@@ -145,5 +145,6 @@
         <file>qml/Meikade/banners/257.jpg</file>
         <file>qml/Meikade/icons/menu.png</file>
         <file>qml/Meikade/FavoriteMessage.qml</file>
+        <file>qml/Meikade/CopyErrorMessage.qml</file>
     </qresource>
 </RCC>

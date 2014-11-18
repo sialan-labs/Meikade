@@ -15,7 +15,7 @@ Column {
         font.pixelSize: 9*fontsScale
         color: "#333333"
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        text: qsTr("Thank you for choosing Meikade.\nIf you are like this app, please rate us on Google play or Bazaar.\nThank you.")
+        text: qsTr("Error extracting database. There is no free space on your sd-card.\nMeikade need 150MB free space on your memory.")
     }
 
     Row {
@@ -26,22 +26,10 @@ Column {
             textColor: "#0d80ec"
             normalColor: "#00000000"
             highlightColor: "#660d80ec"
-            text: qsTr("Cancel")
+            text: qsTr("Dismiss")
             onClicked: {
                 BackHandler.back()
-            }
-        }
-
-        Button {
-            textFont.family: SApp.globalFontFamily
-            textFont.pixelSize: 10*fontsScale
-            textColor: "#0d80ec"
-            normalColor: "#00000000"
-            highlightColor: "#660d80ec"
-            text: qsTr("OK")
-            onClicked: {
-                Qt.openUrlExternally("market://details?id=org.sialan.meikade")
-                BackHandler.back()
+                Meikade.close()
             }
         }
     }

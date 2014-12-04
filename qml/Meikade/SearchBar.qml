@@ -33,6 +33,8 @@ BackHandlerView {
     onHideChanged: {
         if( !hide )
             txt.focus = true
+        else
+            main.focus = true
     }
 
     Behavior on height {

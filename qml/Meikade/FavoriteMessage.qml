@@ -40,7 +40,7 @@ Column {
             highlightColor: "#660d80ec"
             text: qsTr("OK")
             onClicked: {
-                Qt.openUrlExternally("market://details?id=org.sialan.meikade")
+                Qt.openUrlExternally("market://details?id=org.sialan.Meikade")
                 BackHandler.back()
             }
         }

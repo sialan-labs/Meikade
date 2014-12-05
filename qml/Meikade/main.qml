@@ -79,16 +79,29 @@ SialanMain {
 
     Connections{
         target: Meikade
-        onCloseRequest: {
-            if( !main.back() )
-                Meikade.close()
-        }
+        onCloseRequest: SApp.back()
     }
 
     Connections {
         target: SApp
-        onBackRequest: main.back()
+        onBackRequest: {
+            if(timer_delayer.running)
+                return
+
+            timer_delayer.start()
+            var res = BackHandler.back()
+            if( !res && !Devices.isDesktop )
+                Meikade.close()
+        }
     }
+
+    Timer {
+        id: timer_delayer
+        interval: 300
+        repeat: false
+    }
+
+    Keys.onEscapePressed: SApp.back()
 
     Connections {
         target: Database
@@ -139,7 +152,7 @@ SialanMain {
             if( !search_bar.hide ) {
                 if( search_bar.viewMode )
                     if( BackHandler )
-                        BackHandler.back()
+                        SApp.back()
 
                 search_bar.hide = true
             }
@@ -179,9 +192,16 @@ SialanMain {
                     main.menuItem.close()
             }
             if( !hide )
-                BackHandler.pushHandler( search_bar, function hide(){search_bar.hide = true} )
+                BackHandler.pushHandler( search_bar_back, search_bar_back.hide )
             else
-                BackHandler.removeHandler(search_bar)
+                BackHandler.removeHandler(search_bar_back)
+        }
+
+        QtObject {
+            id: search_bar_back
+            function hide(){
+                search_bar.hide = true
+            }
         }
     }
 
@@ -332,7 +352,7 @@ SialanMain {
             visible: !search_bar.hide
             z: 10000
             onClicked: {
-                main.back()
+                SApp.back()
                 Devices.hideKeyboard()
             }
         }
@@ -421,8 +441,6 @@ SialanMain {
         }
     }
 
-    Keys.onEscapePressed: back()
-
     function hideMenuItem() {
         main.menuItem.close()
     }
@@ -470,6 +488,6 @@ SialanMain {
     }
 
     function back(){
-        return BackHandler.back()
+        return SApp.back()
     }
 }

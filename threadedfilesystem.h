@@ -31,13 +31,20 @@ public:
 
 public slots:
     void copy( const QString & src, const QString & dst );
+    void extract( const QString & src, int counter, const QString & dst );
 
 signals:
     void copyFinished( const QString & dst );
     void copyError();
 
+    void extractFinished( const QString & dst );
+    void extractError();
+
+    void extractProgress( int percent );
+
 private slots:
     void copy_prv( const QString & src, const QString & dst );
+    void extract_prv( const QString & src, int counter, const QString & dst );
 
 private:
     ThreadedFileSystemPrivate *p;

@@ -31,7 +31,7 @@ Rectangle {
         anchors.fill: parent
         sourceSize: Qt.size(width,height)
         fillMode: Image.PreserveAspectCrop
-        source: "images/intro.png"
+        source: "images/intro.jpg"
     }
 
     Button{
@@ -50,7 +50,7 @@ Rectangle {
         textFont.bold: false
         visible: backButton
         onClicked: {
-            main.back()
+            SApp.back()
             Devices.hideKeyboard()
         }
     }
@@ -76,7 +76,7 @@ Rectangle {
             width: parent.width
             font.family: SApp.globalFontFamily
             font.pixelSize: 9*fontsScale
-            text: "v1.0.0"
+            text: "v1.0.6"
             wrapMode: Text.WordWrap
             color: "#ffffff"
             horizontalAlignment: Text.AlignRight

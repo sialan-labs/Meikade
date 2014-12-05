@@ -28,7 +28,7 @@ Column {
             highlightColor: "#660d80ec"
             text: qsTr("Dismiss")
             onClicked: {
-                BackHandler.back()
+                SApp.back()
                 Meikade.close()
             }
         }

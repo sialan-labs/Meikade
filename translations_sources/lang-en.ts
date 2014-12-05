@@ -71,12 +71,12 @@ contact@sialan.org</source>
 <context>
     <name>CheckBox</name>
     <message>
-        <location filename="../sialantools/qml/SialanTools/CheckBox.qml" line="101"/>
+        <location filename="../sialantools/qml/SialanTools/CheckBox.qml" line="107"/>
         <source>On</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sialantools/qml/SialanTools/CheckBox.qml" line="102"/>
+        <location filename="../sialantools/qml/SialanTools/CheckBox.qml" line="108"/>
         <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -226,8 +226,8 @@ Thank you.</source>
 <context>
     <name>InitializeWait</name>
     <message>
-        <location filename="../qml/Meikade/InitializeWait.qml" line="49"/>
-        <source>Initializing</source>
+        <location filename="../qml/Meikade/InitializeWait.qml" line="65"/>
+        <source>Installing Database</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -280,52 +280,52 @@ Thank you.</source>
 <context>
     <name>Meikade</name>
     <message>
-        <location filename="../meikade.cpp" line="223"/>
+        <location filename="../meikade.cpp" line="225"/>
         <source>0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../meikade.cpp" line="224"/>
+        <location filename="../meikade.cpp" line="226"/>
         <source>1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../meikade.cpp" line="225"/>
+        <location filename="../meikade.cpp" line="227"/>
         <source>2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../meikade.cpp" line="226"/>
+        <location filename="../meikade.cpp" line="228"/>
         <source>3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../meikade.cpp" line="227"/>
+        <location filename="../meikade.cpp" line="229"/>
         <source>4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../meikade.cpp" line="228"/>
+        <location filename="../meikade.cpp" line="230"/>
         <source>5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../meikade.cpp" line="229"/>
+        <location filename="../meikade.cpp" line="231"/>
         <source>6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../meikade.cpp" line="230"/>
+        <location filename="../meikade.cpp" line="232"/>
         <source>7</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../meikade.cpp" line="231"/>
+        <location filename="../meikade.cpp" line="233"/>
         <source>8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../meikade.cpp" line="232"/>
+        <location filename="../meikade.cpp" line="234"/>
         <source>9</source>
         <translation type="unfinished"></translation>
     </message>
@@ -686,7 +686,7 @@ Thank you.</source>
 <context>
     <name>SearchBar</name>
     <message>
-        <location filename="../qml/Meikade/SearchBar.qml" line="77"/>
+        <location filename="../qml/Meikade/SearchBar.qml" line="79"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>

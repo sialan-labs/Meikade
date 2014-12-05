@@ -17,11 +17,14 @@
 */
 
 #include "threadedfilesystem.h"
+#include "p7zipextractor.h"
+#include "sialantools/sialanapplication.h"
 
 #include <QFile>
 #include <QFileInfo>
 #include <QThread>
 #include <QDebug>
+#include <QDir>
 
 class ThreadedFileSystemThread: public QThread
 {
@@ -41,12 +44,15 @@ class ThreadedFileSystemPrivate
 {
 public:
     ThreadedFileSystemThread *thread;
+    P7ZipExtractor *p7zip;
 };
 
 ThreadedFileSystem::ThreadedFileSystem(QObject *parent) :
     QObject()
 {
     p = new ThreadedFileSystemPrivate;
+    p->p7zip = 0;
+
     p->thread = new ThreadedFileSystemThread(this,parent);
 
     moveToThread( p->thread );
@@ -56,6 +62,87 @@ ThreadedFileSystem::ThreadedFileSystem(QObject *parent) :
 void ThreadedFileSystem::copy(const QString &src, const QString &dst)
 {
     QMetaObject::invokeMethod( this, "copy_prv", Qt::QueuedConnection, Q_ARG(QString,src), Q_ARG(QString,dst) );
+}
+
+void ThreadedFileSystem::extract(const QString &src, int counter, const QString &dst)
+{
+    QMetaObject::invokeMethod( this, "extract_prv", Qt::QueuedConnection, Q_ARG(QString,src), Q_ARG(int,counter), Q_ARG(QString,dst) );
+}
+
+void ThreadedFileSystem::extract_prv(const QString &src, int counter, const QString &dst)
+{
+    if( !p->p7zip )
+        p->p7zip = new P7ZipExtractor(this);
+
+    QFile::remove(dst);
+    QFile dstFile(dst);
+    if( !dstFile.open(QFile::WriteOnly) )
+    {
+        emit extractError();
+        return;
+    }
+
+    const QString & temp = SialanApplication::tempPath();
+    QDir().mkpath(temp);
+
+    qreal percent = 0;
+    const qreal big_step = 100.0/counter;
+    const qreal sml_step = big_step/3;
+
+    for( int i=0; i<counter; i++ )
+    {
+        const QString & src_path = src + QString::number(i);
+        const QString & zip_path = temp + "/" + QFileInfo(src_path).fileName() + ".7z";
+        const QString & file_path = temp + "/" + QFileInfo(src_path).fileName();
+
+        QFile::remove(zip_path);
+        QFile::remove(file_path);
+
+        bool done = QFile::copy(src_path, zip_path);
+        if( !done )
+        {
+            emit extractError();
+            return;
+        }
+        percent += sml_step;
+        emit extractProgress(percent);
+
+
+        p->p7zip->extract( zip_path, temp );
+        QFile::remove(zip_path);
+        percent += sml_step;
+        emit extractProgress(percent);
+
+
+        QFile tmpFile(file_path);
+        if( !tmpFile.open(QFile::ReadOnly) )
+        {
+            emit extractError();
+            return;
+        }
+
+        QByteArray data = tmpFile.readAll();
+        if( dstFile.write(data) == -1 )
+        {
+            emit extractError();
+            return;
+        }
+        if( !dstFile.flush() )
+        {
+            emit extractError();
+            return;
+        }
+
+        tmpFile.close();
+        tmpFile.remove();
+        percent += sml_step;
+        emit extractProgress(percent);
+    }
+
+    dstFile.close();
+
+    emit extractProgress(100);
+    emit extractFinished(dst);
 }
 
 void ThreadedFileSystem::copy_prv(const QString &src, const QString &dst)

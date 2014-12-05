@@ -26,7 +26,7 @@ About {
 
     Text {
         id: init_txt
-        y: parent.height*3/4
+        y: parent.height*4/5
         anchors.horizontalCenter: parent.horizontalCenter
         font.pixelSize: 12*fontsScale
         font.bold: true
@@ -40,13 +40,31 @@ About {
         anchors.topMargin: 10*physicalPlatformScale
     }
 
+    ProgressBar {
+        id: progressbar
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: cradle.bottom
+        anchors.topMargin: 10*physicalPlatformScale
+        anchors.margins: 20*physicalPlatformScale
+        color: "#000000"
+        topColor: "#0d80ec"
+    }
+
+    Connections {
+        target: Database
+        onExtractProgress: {
+            progressbar.percent = percent
+        }
+    }
+
     Connections{
         target: Meikade
         onCurrentLanguageChanged: initTranslations()
     }
 
     function initTranslations(){
-        init_txt.text = qsTr("Initializing")
+        init_txt.text = qsTr("Installing Database")
     }
 
     Component.onCompleted: initTranslations()

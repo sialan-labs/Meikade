@@ -73,6 +73,7 @@ Rectangle {
                     textColor: "#333333"
                     vid: identifier
                     pid: poem_id
+                    font.pixelSize: Devices.isMobile? 9*fontsScale : 11*fontsScale
 
                     Rectangle {
                         anchors.right: parent.right

@@ -25,9 +25,11 @@
 #include "listobject.h"
 #include "hashobject.h"
 #include "systeminfo.h"
+#include "p7zipextractor.h"
 #include "meikade_macros.h"
 #include "sialantools/sialandevices.h"
 #include "sialantools/sialanquickview.h"
+#include "sialantools/sialanapplication.h"
 
 #ifdef Q_OS_ANDROID
 #include "sialantools/sialanjavalayer.h"
@@ -378,7 +380,7 @@ void Meikade::start()
 #ifndef Q_OS_ANDROID
                         SialanQuickView::AllExceptLogger
 #else
-                        SialanQuickView::AllComponents
+                        SialanQuickView::AllExceptLogger
 #endif
                 );
     p->viewer->installEventFilter(this);

@@ -163,7 +163,7 @@ BackHandlerView {
         textFont.bold: false
         visible: backButton && search_bar.searchMode
         onClicked: {
-            main.back()
+            SApp.back()
             Devices.hideKeyboard()
         }
     }

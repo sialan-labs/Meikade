@@ -16,10 +16,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define CURRENT_DB_VERSION 1
+
 #include "meikadedatabase.h"
 #include "threadedfilesystem.h"
 #include "meikade_macros.h"
 #include "meikade.h"
+#include "sialantools/sialanapplication.h"
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -90,32 +93,25 @@ void MeikadeDatabase::initialize()
 {
 #ifdef Q_OS_ANDROID
     p->path = "/sdcard/Sialan/Meikade/data.sqlite";
-    p->src = "assets:/database/data.sqlite";
+    p->src = "assets:/database/data/data";
     QDir().mkpath("/sdcard/Sialan/Meikade");
 #else
     p->path = HOME_PATH + "/data.sqlite";
-    p->src = "database/data.sqlite";
+    p->src = "database/data/data";
 #endif
 
-    bool force = false;
-    if( QFileInfo(p->src).size() != QFileInfo(p->path).size() )
+    int db_version = Meikade::settings()->value("initialize/dataVersion",0).toInt();
+    if( db_version < CURRENT_DB_VERSION || !QFileInfo(p->path).exists() )
     {
-        force = true;
         QFile::remove(p->path);
-    }
 
-    if( force || !Meikade::settings()->value("initialize/data_db",false).toBool() )
+        connect( p->tfs, SIGNAL(extractProgress(int)), SIGNAL(extractProgress(int)), Qt::QueuedConnection );
+        connect( p->tfs, SIGNAL(extractFinished(QString)), SLOT(initialize_prv(QString)), Qt::QueuedConnection );
+        connect( p->tfs, SIGNAL(extractError()), SIGNAL(copyError()), Qt::QueuedConnection );
+        p->tfs->extract(p->src,20,p->path);
+    }
+    else
     {
-        connect( p->tfs, SIGNAL(copyFinished(QString)), SLOT(initialize_prv(QString)), Qt::QueuedConnection );
-        connect( p->tfs, SIGNAL(copyError()), SIGNAL(copyError()), Qt::QueuedConnection );
-
-#ifdef Q_OS_ANDROID
-        p->tfs->copy(p->src ,p->path);
-#else
-        p->tfs->copy(p->src ,p->path);
-#endif
-    }
-    else {
         QMetaObject::invokeMethod( this, "initialize_prv", Qt::QueuedConnection, Q_ARG(QString,p->path) );
         p->initialized = true;
     }
@@ -126,10 +122,11 @@ void MeikadeDatabase::initialize_prv(const QString &dst)
     if( dst.isEmpty() )
         return;
 
-    disconnect( p->tfs, SIGNAL(copyFinished(QString)), this, SLOT(initialize_prv(QString)) );
-    disconnect( p->tfs, SIGNAL(copyError()), this, SIGNAL(copyError()) );
+    disconnect( p->tfs, SIGNAL(extractProgress(int)), this, SIGNAL(extractProgress(int)) );
+    disconnect( p->tfs, SIGNAL(extractFinished(QString)), this, SLOT(initialize_prv(QString)) );
+    disconnect( p->tfs, SIGNAL(extractError()), this, SIGNAL(copyError()) );
 
-    Meikade::settings()->setValue("initialize/data_db",true);
+    Meikade::settings()->setValue("initialize/dataVersion",CURRENT_DB_VERSION);
     QFile(p->path).setPermissions(QFileDevice::ReadUser|QFileDevice::ReadGroup);
 
     p->db = QSqlDatabase::addDatabase("QSQLITE",DATA_DB_CONNECTION);

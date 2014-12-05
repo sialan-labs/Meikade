@@ -28,7 +28,7 @@ Column {
             highlightColor: "#660d80ec"
             text: qsTr("Cancel")
             onClicked: {
-                BackHandler.back()
+                SApp.back()
             }
         }
 
@@ -41,7 +41,7 @@ Column {
             text: qsTr("OK")
             onClicked: {
                 Qt.openUrlExternally("market://details?id=org.sialan.Meikade")
-                BackHandler.back()
+                SApp.back()
             }
         }
     }

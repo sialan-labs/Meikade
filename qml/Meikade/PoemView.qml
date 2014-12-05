@@ -410,7 +410,7 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: BackHandler.back()
+        onClicked: SApp.back()
         visible: bottomPanel.item? true : false
     }
 

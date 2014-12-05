@@ -66,7 +66,7 @@ Rectangle {
             id: txt
             anchors.right: parent.right
             anchors.left: parent.left
-            font.pixelSize: 11*fontsScale
+            font.pixelSize: Devices.isMobile? 9*fontsScale : 11*fontsScale
             font.family: globalPoemFontFamily
             wrapMode: TextInput.WordWrap
             horizontalAlignment: Text.AlignRight

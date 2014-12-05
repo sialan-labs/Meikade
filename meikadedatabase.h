@@ -34,6 +34,7 @@ public:
 
 signals:
     void initializeFinished();
+    void extractProgress(int percent);
     void copyError();
 
 public slots:

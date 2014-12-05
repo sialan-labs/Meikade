@@ -43,7 +43,7 @@ BackHandlerView {
         textFont.bold: false
         visible: backButton
         onClicked: {
-            main.back()
+            SApp.back()
             Devices.hideKeyboard()
         }
     }

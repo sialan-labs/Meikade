@@ -76,7 +76,7 @@ Rectangle {
             width: parent.width
             font.family: SApp.globalFontFamily
             font.pixelSize: 9*fontsScale
-            text: "v1.0.6"
+            text: "v1.0.7"
             wrapMode: Text.WordWrap
             color: "#ffffff"
             horizontalAlignment: Text.AlignRight

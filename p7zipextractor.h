@@ -31,7 +31,6 @@ public:
 
 public slots:
     void extract(const QString & path, const QString &dest);
-    void staticExtract(const QString & path, const QString &dest);
 
 private:
     P7ZipExtractorPrivate *p;

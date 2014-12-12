@@ -101,7 +101,7 @@ void MeikadeDatabase::initialize()
 #endif
 
     int db_version = Meikade::settings()->value("initialize/dataVersion",0).toInt();
-    if( db_version < CURRENT_DB_VERSION || !QFileInfo(p->path).exists() )
+    if( db_version < CURRENT_DB_VERSION || !QFileInfo(p->path).exists() || QFileInfo(p->path).size() < 104292000 )
     {
         QFile::remove(p->path);
 

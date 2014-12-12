@@ -78,6 +78,8 @@ void ThreadedFileSystem::extract_prv(const QString &src, int counter, const QStr
     QFile dstFile(dst);
     if( !dstFile.open(QFile::WriteOnly) )
     {
+        dstFile.close();
+        dstFile.remove();
         emit extractError();
         return;
     }
@@ -101,6 +103,8 @@ void ThreadedFileSystem::extract_prv(const QString &src, int counter, const QStr
         bool done = QFile::copy(src_path, zip_path);
         if( !done )
         {
+            dstFile.close();
+            dstFile.remove();
             emit extractError();
             return;
         }
@@ -113,10 +117,11 @@ void ThreadedFileSystem::extract_prv(const QString &src, int counter, const QStr
         percent += sml_step;
         emit extractProgress(percent);
 
-
         QFile tmpFile(file_path);
-        if( !tmpFile.open(QFile::ReadOnly) )
+        if( !tmpFile.exists() || !tmpFile.open(QFile::ReadOnly) )
         {
+            dstFile.close();
+            dstFile.remove();
             emit extractError();
             return;
         }
@@ -124,11 +129,15 @@ void ThreadedFileSystem::extract_prv(const QString &src, int counter, const QStr
         QByteArray data = tmpFile.readAll();
         if( dstFile.write(data) == -1 )
         {
+            dstFile.close();
+            dstFile.remove();
             emit extractError();
             return;
         }
         if( !dstFile.flush() )
         {
+            dstFile.close();
+            dstFile.remove();
             emit extractError();
             return;
         }
